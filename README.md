@@ -2,7 +2,7 @@
 ## Free Source Code<br/>
 
 ### Aplikasi ini dibuat menggunakan
-- Codeigniter 3
+- Laravel
 - Bootstrap 4
 - SB Admin 2 Template
 - Datatables
