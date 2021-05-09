@@ -9,7 +9,7 @@
                 </h4>
             </div>
             <div class="col-auto">
-                <a href="<?=URL::to('/');?>barangkeluar/add" class="btn btn-sm btn-primary btn-icon-split">
+                <a href="<?=URL::to('/');?>/barangkeluar/add" class="btn btn-sm btn-primary btn-icon-split">
                     <span class="icon">
                         <i class="fa fa-plus"></i>
                     </span>
@@ -47,7 +47,7 @@
                             <td><?= $bk->jumlah_keluar?> <?=$bk->nama_satuan; ?></td>
                             <td><?= $bk->nama; ?></td>
                             <td>
-                                <a onclick="return confirm('Yakin ingin hapus?')" href="<?=URL::to('/');?>barangkeluar/delete/<?=$bk->id_barang_keluar; ?>" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></a>
+                                <a onclick="return confirm('Yakin ingin hapus?')" href="<?=URL::to('/');?>/barangkeluar/delete/<?=$bk->id_barang_keluar; ?>" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

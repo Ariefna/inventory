@@ -1,3 +1,5 @@
+@extends('templates.dashboard')
+@section('content')
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card shadow-sm border-bottom-primary">
@@ -9,7 +11,7 @@
                         </h4>
                     </div>
                     <div class="col-auto">
-                        <a href="<?= base_url('jenis') ?>" class="btn btn-sm btn-secondary btn-icon-split">
+                        <a href="<?=URL::to('/');?>/jenis" class="btn btn-sm btn-secondary btn-icon-split">
                             <span class="icon">
                                 <i class="fa fa-arrow-left"></i>
                             </span>
@@ -21,13 +23,10 @@
                 </div>
             </div>
             <div class="card-body">
-                <?= $this->session->flashdata('pesan'); ?>
-                <?= form_open('', [], ['id_jenis' => $jenis['id_jenis']]); ?>
                 <div class="row form-group">
                     <label class="col-md-3 text-md-right" for="nama_jenis">Nama Jenis</label>
                     <div class="col-md-9">
-                        <input value="<?= set_value('nama_jenis', $jenis['nama_jenis']); ?>" name="nama_jenis" id="nama_jenis" type="text" class="form-control" placeholder="Nama Jenis...">
-                        <?= form_error('nama_jenis', '<small class="text-danger">', '</small>'); ?>
+                        <input value="<?= $jenis[0]->nama_jenis; ?>" name="nama_jenis" id="nama_jenis" type="text" class="form-control" placeholder="Nama Jenis...">
                     </div>
                 </div>
                 <div class="row form-group">
@@ -35,8 +34,8 @@
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
-                <?= form_close(); ?>
             </div>
         </div>
     </div>
 </div>
+@stop
