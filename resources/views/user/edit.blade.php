@@ -21,7 +21,13 @@
                 </div>
             </div>
             <div class="card-body pb-2">
-                <?= $this->session->flashdata('pesan'); ?>
+            @if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+@endif
                 <?= form_open('', [], ['id_user' => $user['id_user']]); ?>
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="username">Username</label>

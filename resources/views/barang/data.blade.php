@@ -1,5 +1,12 @@
 @extends('templates.dashboard')
 @section('content')
+@if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+@endif
 <div class="card shadow-sm border-bottom-primary">
     <div class="card-header bg-white py-3">
         <div class="row">

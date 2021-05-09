@@ -94,26 +94,26 @@ public function supplierinsert(Request $request){
 	DB::table('supplier')->insert(
 		['nama_supplier' => $nama_supplier, 'no_telp' => $no_telp, 'alamat' => $alamat]
 	);
-	return view('supplier/data',['title' => $title,'supplier' => $supplier]);
+	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
 }   
 public function barangsatuaninsert(Request $request){
 	$nama_satuan = $request->input('nama_satuan');
-	DB::table('supplier')->insert(
+	DB::table('satuan')->insert(
 		['nama_satuan' => $nama_satuan]
 	);
-   return view('satuan/data',['title' => $title,'satuan' => $satuan]);
+	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
 }   
 public function barangjenisinsert(Request $request){
 	$nama_jenis = $request->input('nama_jenis');
 	DB::table('jenis')->insert(
 		['nama_jenis' => $nama_jenis]
 	);
-  return view('jenis/data',['title' => $title,'jenis' => $jenis]);
+	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
 }
 public function barangbaranginsert(Request $request){
 	$id_barang = $request->input('id_barang');
 	$nama_barang = $request->input('nama_barang');
-	$stok = $request->input('stok');
+	$stok = 0;
 	$satuan_id = $request->input('satuan_id');
 	$jenis_id = $request->input('jenis_id');
 	DB::table('barang')->insert(
@@ -124,7 +124,7 @@ public function barangbaranginsert(Request $request){
 		'jenis_id' => $jenis_id
 		]
 	);
-return view('barang/data',['title' => $title,'barang' => $barang]);
+	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
 }
 public function barangmasukinsert(Request $request){
 	$id_barang_masuk = $request->input('id_barang_masuk');
@@ -142,7 +142,7 @@ public function barangmasukinsert(Request $request){
 		'tanggal_masuk' => $tanggal_masuk
 		]
 	);
-return view('barang_masuk/data',['title' => $title,'barangmasuk' => $barangmasuk]);
+	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
 }
 public function barangkeluarinsert(Request $request){
 	$id_barang_keluar = $request->input('id_barang_keluar');
@@ -157,7 +157,7 @@ public function barangkeluarinsert(Request $request){
 		'tanggal_keluar' => $tanggal_keluar
 		]
 	);
-return view('barang_keluar/data',['title' => $title,'barangkeluar' => $barangkeluar]);
+	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
 }
 //update
 public function supplierupdate(Request $request){
@@ -170,7 +170,7 @@ public function supplierupdate(Request $request){
 	->update(
 		['nama_supplier' => $nama_supplier, 'no_telp' => $no_telp, 'alamat' => $alamat]
 	);
-	return view('supplier/data',['title' => $title,'supplier' => $supplier]);
+	return redirect()->back()->with('success', 'Data Anda Berhasil Diubah'); 
 }   
 public function barangsatuanupdate(Request $request){
 	$id_satuan = $request->input('id_satuan');
@@ -180,7 +180,7 @@ public function barangsatuanupdate(Request $request){
 	->update(
 		['nama_satuan' => $nama_satuan]
 	);
-   return view('satuan/data',['title' => $title,'satuan' => $satuan]);
+	return redirect()->back()->with('success', 'Data Anda Berhasil Diubah'); 
 }   
 public function barangjenisupdate(Request $request){
 	$id_jenis = $request->input('id_jenis');
@@ -190,7 +190,7 @@ public function barangjenisupdate(Request $request){
 	->update(
 		['nama_jenis' => $nama_jenis]
 	);
-  return view('jenis/data',['title' => $title,'jenis' => $jenis]);
+	return redirect()->back()->with('success', 'Data Anda Berhasil Diubah'); 
 }
 public function barangbarangupdate(Request $request){
 	$id_barang = $request->input('id_barang');
@@ -208,7 +208,7 @@ public function barangbarangupdate(Request $request){
 		'jenis_id' => $jenis_id
 		]
 	);
-return view('barang/data',['title' => $title,'barang' => $barang]);
+	return redirect()->back()->with('success', 'Data Anda Berhasil Diubah'); 
 }
 
 // insert view
@@ -227,19 +227,71 @@ public function barangjenisinsertview(){
 public function barangbaranginsertview(){
 	$jenis = DB::table('jenis')->get();
 	$satuan = DB::table('satuan')->get();
+
+	$kode_terakhir = DB::table('barang')->max('id_barang');
+	$kode_tambah = substr($kode_terakhir, -6, 6);
+	$kode_tambah++;
+	$number = str_pad($kode_tambah, 6, '0', STR_PAD_LEFT);
+	$id_barang = 'B' . $number;
 	$title = "Tambah Data Barang";
-return view('barang/add',['title' => $title,'jenis' => $jenis,'satuan' => $satuan]);
+return view('barang/add',['title' => $title,'jenis' => $jenis,'satuan' => $satuan,'id_barang' => $id_barang]);
 }
 public function barangmasukinsertview(){
+	$kode = 'T-BM-' . date('ymd');
+            $kode_terakhir = DB::table('barang_masuk')->where('id_barang_masuk', 'like', '"%'.$kode.'%"')->max('id_barang_masuk');
+			DB::table('barang')->max('id_barang');
+            $kode_tambah = substr($kode_terakhir, -5, 5);
+            $kode_tambah++;
+            $number = str_pad($kode_tambah, 5, '0', STR_PAD_LEFT);
+            $id_barang_masuk = $kode . $number;
 	$supplier = DB::table('supplier')->get();
 	$barang = DB::table('barang')->get();
 	$satuan = DB::table('satuan')->get();
 	$title = "Tambah Data Barang Masuk";
-return view('barang_masuk/add',['title' => $title, 'supplier' => $supplier, 'barang' => $barang]);
+return view('barang_masuk/add',['title' => $title, 'supplier' => $supplier, 'barang' => $barang, 'id_barang_masuk' => $id_barang_masuk]);
 }
 public function barangkeluarinsertview(){
+	$kode = 'T-BK-' . date('ymd');
+            $kode_terakhir = DB::table('barang_keluar')->where('id_barang_keluar', 'like', '"%'.$kode.'%"')->max('id_barang_keluar');
+			DB::table('barang')->max('id_barang');
+            $kode_tambah = substr($kode_terakhir, -5, 5);
+            $kode_tambah++;
+            $number = str_pad($kode_tambah, 5, '0', STR_PAD_LEFT);
+            $id_barang_keluar = $kode . $number;
 	$barang = DB::table('barang')->get();
 	$title = "Tambah Data Barang Keluar";
-return view('barang_keluar/add',['title' => $title, 'barang' => $barang]);
+return view('barang_keluar/add',['title' => $title, 'barang' => $barang, 'id_barang_keluar' => $id_barang_keluar]);
+}
+
+// delete
+public function supplierdelete($id){
+	$id_supplier = $id;
+	DB::table('supplier')->where('id_supplier', '=', $id_supplier)->delete();
+	return redirect()->back()->with('success', 'Data Anda Berhasil Dihapus'); 
+}   
+public function satuandelete($id){
+	$id_satuan = $id;
+	DB::table('satuan')->where('id_satuan', '=', $id_satuan)->delete();
+	return redirect()->back()->with('success', 'Data Anda Berhasil Dihapus'); 
+}   
+public function jenisdelete($id){
+	$nama_jenis = $id;
+	DB::table('jenis')->where('id_jenis', '=', $nama_jenis)->delete();
+	return redirect()->back()->with('success', 'Data Anda Berhasil Dihapus'); 
+}
+public function barangbarangdelete($id){
+	$id_barang = $id;
+	DB::table('barang')->where('id_barang', '=', $id_barang)->delete();
+	return redirect()->back()->with('success', 'Data Anda Berhasil Dihapus'); 
+}
+public function barangmasukdelete($id){
+	$id_barang_masuk = $id;
+	DB::table('barang_masuk')->where('id_barang', '=', $id_barang)->delete();
+	return redirect()->back()->with('success', 'Data Anda Berhasil Dihapus'); 
+}
+public function barangkeluardelete($id){
+	$id_barang_keluar = $id;
+	DB::table('barang_keluar')->where('id_barang_keluar', '=', $id_barang_keluar)->delete();
+	return redirect()->back()->with('success', 'Data Anda Berhasil Dihapus'); 
 }
 }

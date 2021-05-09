@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('templates/dashboard');
 // });
 Route::get('/', 'App\Http\Controllers\SingleController@index');
+Route::get('/dashboard', 'App\Http\Controllers\SingleController@index');
 Route::get('/supplier', 'App\Http\Controllers\SingleController@supplierview');
 Route::get('/satuan', 'App\Http\Controllers\SingleController@barangsatuanview');
 Route::get('/jenis', 'App\Http\Controllers\SingleController@barangjenisview');
@@ -54,4 +55,12 @@ Route::post('/jenis/update', 'App\Http\Controllers\SingleController@barangjenisi
 Route::post('/barang/update', 'App\Http\Controllers\SingleController@barangbaranginsert');
 Route::post('/barangmasuk/update', 'App\Http\Controllers\SingleController@barangmasukinsert');
 Route::post('/barangkeluar/update', 'App\Http\Controllers\SingleController@barangkeluarinsert');
+
+//delete
+Route::get('/supplier/delete/{id}', 'App\Http\Controllers\SingleController@supplierdelete');
+Route::get('/satuan/delete/{id}', 'App\Http\Controllers\SingleController@satuandelete');
+Route::get('/jenis/delete/{id}', 'App\Http\Controllers\SingleController@jenisdelete');
+Route::get('/barang/delete/{id}', 'App\Http\Controllers\SingleController@barangdelete');
+Route::get('/barangmasuk/delete/{id}', 'App\Http\Controllers\SingleController@barangmasukdelete');
+Route::get('/barangkeluar/delete/{id}', 'App\Http\Controllers\SingleController@barangkeluardelete');
 

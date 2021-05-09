@@ -23,10 +23,19 @@
                 </div>
             </div>
             <div class="card-body">
+            @if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+@endif
+<form method = "POST" action="/barang/insert">
+            {{ csrf_field() }}
                 <div class="row form-group">
                     <label class="col-md-3 text-md-right" for="id_barang">ID Barang</label>
                     <div class="col-md-9">
-                        <input readonly value="" name="id_barang" id="id_barang" type="text" class="form-control" placeholder="ID Barang...">
+                        <input readonly value="{{ $id_barang }}" name="id_barang" id="id_barang" type="text" class="form-control" placeholder="ID Barang...">
                     </div>
                 </div>
                 <div class="row form-group">
@@ -73,6 +82,7 @@
                         <button type="reset" class="btn btn-secondary">Reset</bu>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>

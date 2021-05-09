@@ -23,6 +23,15 @@
                 </div>
             </div>
             <div class="card-body">
+            @if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+@endif
+            <form method = "POST" action="/supplier/insert">
+            {{ csrf_field() }}
                 <div class="row form-group">
                     <label class="col-md-3 text-md-right" for="nama_supplier">Nama Supplier</label>
                     <div class="col-md-9">
@@ -62,6 +71,7 @@
                         <button type="reset" class="btn btn-secondary">Reset</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>

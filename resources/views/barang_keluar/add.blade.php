@@ -23,16 +23,25 @@
                 </div>
             </div>
             <div class="card-body">
+            @if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+@endif
+<form method = "POST" action="/barang_keluar/insert">
+            {{ csrf_field() }}
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="id_barang_keluar">ID Transaksi Barang Keluar</label>
                     <div class="col-md-4">
-                        <input value="" type="text" readonly="readonly" class="form-control">
+                        <input value="{{ $id_barang_keluar }}" type="text" readonly="readonly" class="form-control">
                     </div>
                 </div>
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="tanggal_keluar">Tanggal Keluar</label>
                     <div class="col-md-4">
-                        <input value="" name="tanggal_keluar" id="tanggal_keluar" type="text" class="form-control date" placeholder="Tanggal Masuk...">
+                        <input value="{{date('ymd')}}" name="tanggal_keluar" id="tanggal_keluar" type="text" class="form-control date" placeholder="Tanggal Masuk...">
                      
                     </div>
                 </div>
@@ -81,6 +90,7 @@
                         <button type="reset" class="btn btn-secondary">Reset</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
