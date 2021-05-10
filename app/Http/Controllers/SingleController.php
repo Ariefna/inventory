@@ -250,6 +250,22 @@ public function barangmasukinsertview(){
 	$title = "Tambah Data Barang Masuk";
 return view('barang_masuk/add',['title' => $title, 'supplier' => $supplier, 'barang' => $barang, 'id_barang_masuk' => $id_barang_masuk]);
 }
+
+public function barangmasukinsertviewdua($id){
+	$kode = 'T-BM-' . date('ymd');
+            $kode_terakhir = DB::table('barang_masuk')->where('id_barang_masuk', 'like', '"%'.$kode.'%"')->max('id_barang_masuk');
+			DB::table('barang')->max('id_barang');
+            $kode_tambah = substr($kode_terakhir, -5, 5);
+            $kode_tambah++;
+            $number = str_pad($kode_tambah, 5, '0', STR_PAD_LEFT);
+            $id_barang_masuk = $kode . $number;
+	$supplier = DB::table('supplier')->get();
+	$barang = DB::table('barang')->get();
+	$satuan = DB::table('satuan')->get();
+	$title = "Tambah Data Barang Masuk";
+return view('barang_masuk/add2',['title' => $title, 'supplier' => $supplier, 'barang' => $barang, 'id_barang_masuk' => $id_barang_masuk, 'id' => $id]);
+}
+
 public function barangkeluarinsertview(){
 	$kode = 'T-BK-' . date('ymd');
             $kode_terakhir = DB::table('barang_keluar')->where('id_barang_keluar', 'like', '"%'.$kode.'%"')->max('id_barang_keluar');

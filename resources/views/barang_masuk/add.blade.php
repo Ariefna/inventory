@@ -55,7 +55,7 @@
                                 <?php endforeach; ?>
                             </select>
                             <div class="input-group-append">
-                                <a class="btn btn-primary" href="<?=URL::to('/');?>/supplier/add'); ?>"><i class="fa fa-plus"></i></a>
+                                <a class="btn btn-primary" href="<?=URL::to('/');?>/supplier/add"><i class="fa fa-plus"></i></a>
                             </div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                                 <?php endforeach; ?>
                             </select>
                             <div class="input-group-append">
-                                <a class="btn btn-primary" href="<?=URL::to('/');?>barang/add"><i class="fa fa-plus"></i></a>
+                                <a class="btn btn-primary" href="<?=URL::to('/');?>/barang/add"><i class="fa fa-plus"></i></a>
                             </div>
                         </div>
                     </div>

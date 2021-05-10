@@ -46,6 +46,7 @@ Route::get('/satuan/add', 'App\Http\Controllers\SingleController@barangsatuanins
 Route::get('/jenis/add', 'App\Http\Controllers\SingleController@barangjenisinsertview');
 Route::get('/barang/add', 'App\Http\Controllers\SingleController@barangbaranginsertview');
 Route::get('/barangmasuk/add', 'App\Http\Controllers\SingleController@barangmasukinsertview');
+Route::get('/barangmasuk/add/{id}', 'App\Http\Controllers\SingleController@barangmasukinsertviewdua');
 Route::get('/barangkeluar/add', 'App\Http\Controllers\SingleController@barangkeluarinsertview');
 
 // update
