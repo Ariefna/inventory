@@ -41,6 +41,12 @@ Route::post('/barangmasuk/insert', 'App\Http\Controllers\SingleController@barang
 Route::post('/barangkeluar/insert', 'App\Http\Controllers\SingleController@barangkeluarinsert');
 
 // insert view
+Route::get('/profile', 'App\Http\Controllers\SingleController@profileview');
+Route::get('/profile/setting', 'App\Http\Controllers\SingleController@profilesettingview');
+Route::get('/profile/ubahpassword', 'App\Http\Controllers\SingleController@profileubahpasswordview');
+Route::get('/user', 'App\Http\Controllers\SingleController@userview');
+
+
 Route::get('/supplier/add', 'App\Http\Controllers\SingleController@supplierinsertview');
 Route::get('/satuan/add', 'App\Http\Controllers\SingleController@barangsatuaninsertview');
 Route::get('/jenis/add', 'App\Http\Controllers\SingleController@barangjenisinsertview');

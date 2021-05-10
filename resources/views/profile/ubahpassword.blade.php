@@ -1,3 +1,5 @@
+@extends('templates.dashboard')
+@section('content')
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card shadow-sm border-bottom-primary">
@@ -7,28 +9,24 @@
                 </h4>
             </div>
             <div class="card-body">
-                <?= $this->session->flashdata('pesan'); ?>
-                <?= form_open(); ?>
                 <div class="row form-group">
                     <label class="col-md-3 text-md-right" for="password_lama">Password Lama</label>
                     <div class="col-md-9">
-                        <input value="<?= set_value('password_lama'); ?>" name="password_lama" id="password_lama" type="password" class="form-control" placeholder="Password Lama...">
-                        <?= form_error('password_lama', '<small class="text-danger">', '</small>'); ?>
+                        <input value="" name="password_lama" id="password_lama" type="password" class="form-control" placeholder="Password Lama...">
                     </div>
                 </div>
                 <hr>
                 <div class="row form-group">
                     <label class="col-md-3 text-md-right" for="password_baru">Password Baru</label>
                     <div class="col-md-9">
-                        <input value="<?= set_value('password_baru'); ?>" name="password_baru" id="password_baru" type="password" class="form-control" placeholder="Password Baru...">
-                        <?= form_error('password_baru', '<small class="text-danger">', '</small>'); ?>
+                        <input value="" name="password_baru" id="password_baru" type="password" class="form-control" placeholder="Password Baru...">
                     </div>
                 </div>
                 <div class="row form-group">
                     <label class="col-md-3 text-md-right" for="konfirmasi_password">Konfirmasi Password</label>
                     <div class="col-md-9">
-                        <input value="<?= set_value('konfirmasi_password'); ?>" name="konfirmasi_password" id="konfirmasi_password" type="password" class="form-control" placeholder="Konfirmasi Password...">
-                        <?= form_error('konfirmasi_password', '<small class="text-danger">', '</small>'); ?>
+                        <input value="" name="konfirmasi_password" id="konfirmasi_password" type="password" class="form-control" placeholder="Konfirmasi Password...">
+                      
                     </div>
                 </div>
                 <div class="row form-group">
@@ -36,8 +34,8 @@
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
-                <?= form_close(); ?>
             </div>
         </div>
     </div>
 </div>
+@stop

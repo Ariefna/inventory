@@ -1,3 +1,5 @@
+@extends('templates.dashboard')
+@section('content')
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card shadow-sm border-bottom-primary">
@@ -7,18 +9,15 @@
                 </h4>
             </div>
             <div class="card-body">
-                <?= $this->session->flashdata('pesan'); ?>
-                <?= form_open_multipart('', [], ['id_user' => $user['id_user']]); ?>
                 <div class="row form-group">
                     <label class="col-md-3 text-md-right" for="foto">Foto</label>
                     <div class="col-md-9">
                         <div class="row">
                             <div class="col-3">
-                                <img src="<?= base_url() ?>assets/img/avatar/<?= $user['foto']; ?>" alt="<?= $user['nama']; ?>" class="rounded-circle shadow-sm img-thumbnail">
+                                <img src="<?=URL::to('/');?>/img/avatar/<?= $user[0]->foto; ?>" alt="<?= $user[0]->nama; ?>" class="rounded-circle shadow-sm img-thumbnail">
                             </div>
                             <div class="col-9">
                                 <input type="file" name="foto" id="foto">
-                                <?= form_error('foto', '<small class="text-danger">', '</small>'); ?>
                             </div>
                         </div>
                     </div>
@@ -31,9 +30,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-fw fa-user"></i></span>
                             </div>
-                            <input value="<?= set_value('username', $user['username']); ?>" name="username" id="username" type="text" class="form-control" placeholder="Username...">
+                            <input value="<?= $user[0]->username; ?>" name="username" id="username" type="text" class="form-control" placeholder="Username...">
                         </div>
-                        <?= form_error('username', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
                 <hr>
@@ -44,9 +42,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-fw fa-user"></i></span>
                             </div>
-                            <input value="<?= set_value('nama', $user['nama']); ?>" name="nama" id="nama" type="text" class="form-control" placeholder="Nama Anda...">
+                            <input value="<?= $user[0]->nama; ?>" name="nama" id="nama" type="text" class="form-control" placeholder="Nama Anda...">
                         </div>
-                        <?= form_error('nama', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
                 <div class="row form-group">
@@ -56,9 +53,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-fw fa-envelope"></i></span>
                             </div>
-                            <input value="<?= set_value('email', $user['email']); ?>" name="email" id="email" type="text" class="form-control" placeholder="Email...">
+                            <input value="<?= $user[0]->email; ?>" name="email" id="email" type="text" class="form-control" placeholder="Email...">
                         </div>
-                        <?= form_error('email', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
                 <div class="row form-group">
@@ -68,9 +64,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-fw fa-phone"></i></span>
                             </div>
-                            <input value="<?= set_value('no_telp', $user['no_telp']); ?>" name="no_telp" id="no_telp" type="text" class="form-control" placeholder="Nomor Telepon...">
+                            <input value="<?= $user[0]->no_telp; ?>" name="no_telp" id="no_telp" type="text" class="form-control" placeholder="Nomor Telepon...">
                         </div>
-                        <?= form_error('no_telp', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
                 <hr>
@@ -80,8 +75,8 @@
                         <button type="reset" class="btn btn-secondary">Reset</button>
                     </div>
                 </div>
-                <?= form_close(); ?>
             </div>
         </div>
     </div>
 </div>
+@stop

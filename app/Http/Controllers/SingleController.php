@@ -62,6 +62,30 @@ public function laporanview(){
 	$title = "List Laporan";
 	return view('laporan/form',['title' => $title]);
 }
+public function profileview(){
+	$title = "Profile";
+	$user = DB::table('user')->where('id_user', 1)->get();
+	return view('profile/user',['title' => $title,'user' => $user]);
+}
+public function profilesettingview(){
+	$title = "Profile";
+	$user = DB::table('user')->where('id_user', 1)->get();
+	return view('profile/setting',['title' => $title,'user' => $user]);
+}
+public function profileubahpasswordview(){
+	$title = "Profile";
+	$user = DB::table('user')->where('id_user', 1)->get();
+	return view('profile/ubahpassword',['title' => $title,'user' => $user]);
+}
+public function userview(){
+	$title = "User";
+	$user = DB::table('user')->get();
+	return view('user/data',['title' => $title,'users' => $user]);
+}
+
+
+
+
 
 // edit view
 public function supplieredit($id){

@@ -129,21 +129,21 @@
             </li>
 
             <?php /*if (is_admin()) :*/ ?>
-                <!-- Divider
-                <hr class="sidebar-divider"> -->
+                <!-- Divider -->
+                <hr class="sidebar-divider"> 
 
                 <!-- Heading -->
-                <!-- <div class="sidebar-heading">
+                <div class="sidebar-heading">
                     Settings
-                </div> -->
+                </div>
 
                 <!-- Nav Item -->
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="<? /*URL::to('/'); */?>user">
+                 <li class="nav-item">
+                    <a class="nav-link" href="<?=URL::to('/');?>/user">
                         <i class="fas fa-fw fa-user-plus"></i>
                         <span>User Management</span>
                     </a>
-                </li> -->
+                </li>
             <?php /*endif;*/ ?>
 
             <!-- Divider -->
@@ -180,7 +180,7 @@
                                 <span class="mr-2 d-none d-lg-inline small text-capitalize">
                                    
                                 </span>
-                                <img class="img-profile rounded-circle" src="<?=URL::to('/');?>/assets/img/avatar/">
+                                <img class="img-profile rounded-circle" src="<?=URL::to('/');?>/img/avatar/user.png">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
