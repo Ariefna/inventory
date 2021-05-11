@@ -45,6 +45,8 @@ Route::get('/profile', 'App\Http\Controllers\SingleController@profileview');
 Route::get('/profile/setting', 'App\Http\Controllers\SingleController@profilesettingview');
 Route::get('/profile/ubahpassword', 'App\Http\Controllers\SingleController@profileubahpasswordview');
 Route::get('/user', 'App\Http\Controllers\SingleController@userview');
+Route::get('/user/edit/{id}', 'App\Http\Controllers\SingleController@usereditview');
+Route::get('/user/add', 'App\Http\Controllers\SingleController@useraddview');
 
 
 Route::get('/supplier/add', 'App\Http\Controllers\SingleController@supplierinsertview');

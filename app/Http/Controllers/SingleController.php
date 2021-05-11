@@ -82,6 +82,16 @@ public function userview(){
 	$user = DB::table('user')->get();
 	return view('user/data',['title' => $title,'users' => $user]);
 }
+public function usereditview($id){
+	$title = "Profile";
+	$user = DB::table('user')->where('id_user', $id)->get();
+	return view('user/edit',['title' => $title,'user' => $user]);
+}
+
+public function useraddview(){
+	$title = "Profile";
+	return view('user/add',['title' => $title]);
+}
 
 
 
