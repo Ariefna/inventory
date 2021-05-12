@@ -62,6 +62,34 @@ public function laporanview(){
 	$title = "List Laporan";
 	return view('laporan/form',['title' => $title]);
 }
+
+public function laporanhasilview(Request $request){
+	// dd($request->all());
+	$tanggal =explode("-",str_replace(' ', '', $request->input('tanggal')));
+	$datestart = $tanggal[0];
+	$dateend = $tanggal[1];
+	$title = "List Hasil Laporan Dari Tanggal ".$datestart." ".$dateend;
+	// $datestart = $request->input('tanggal');
+	// $dateend = $request->input('tanggal');
+	
+
+	if ("barang_keluar" == $request->input('transaksi')) {
+		$barangkeluar = DB::table('barang_keluar')
+		->join('user', 'barang_keluar.user_id', '=', 'user.id_user')
+		->join('barang', 'barang_keluar.barang_id', '=', 'barang.id_barang')
+		->join('satuan', 'satuan.id_satuan', '=', 'barang.satuan_id')
+		->whereBetween('tanggal_keluar', [$datestart, $dateend])->get();
+		return view('laporan/laporan_barang_keluar',['title' => $title,'barangkeluar' => $barangkeluar]);
+	}else {
+		$barangmasuk = DB::table('barang_masuk')
+	->join('user', 'barang_masuk.user_id', '=', 'user.id_user')
+	->join('supplier', 'barang_masuk.supplier_id', '=', 'supplier.id_supplier')
+	->join('barang', 'barang_masuk.barang_id', '=', 'barang.id_barang')
+	->join('satuan', 'satuan.id_satuan', '=', 'barang.satuan_id')
+	->whereBetween('tanggal_masuk', [$datestart, $dateend])->get();
+	return view('laporan/laporan_barang_masuk',['title' => $title,'barangmasuk' => $barangmasuk]);
+	}
+}
 public function profileview(){
 	$title = "Profile";
 	$user = DB::table('user')->where('id_user', 1)->get();

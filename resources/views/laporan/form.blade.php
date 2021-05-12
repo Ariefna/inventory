@@ -9,6 +9,8 @@
                 </h4>
             </div>
             <div class="card-body">
+            <form method = "POST" action="/laporan/hasil">
+            {{ csrf_field() }}
                 <div class="row form-group">
                     <label class="col-md-3 text-md-right" for="transaksi">Laporan Transaksi</label>
                     <div class="col-md-9">
@@ -47,7 +49,7 @@
                         </button>
                     </div>
                 </div>
-              
+                </form>
             </div>
         </div>
     </div>

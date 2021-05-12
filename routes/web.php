@@ -24,7 +24,9 @@ Route::get('/jenis', 'App\Http\Controllers\SingleController@barangjenisview');
 Route::get('/barang', 'App\Http\Controllers\SingleController@barangbarangview');
 Route::get('/barangmasuk', 'App\Http\Controllers\SingleController@barangmasukview');
 Route::get('/barangkeluar', 'App\Http\Controllers\SingleController@barangkeluarview');
+
 Route::get('/laporan', 'App\Http\Controllers\SingleController@laporanview');
+Route::POST('/laporan/hasil/', 'App\Http\Controllers\SingleController@laporanhasilview');
 
 // edit view
 Route::get('/supplier/edit/{id}', 'App\Http\Controllers\SingleController@supplieredit');
