@@ -209,7 +209,7 @@ public function supplierupdate(Request $request){
 public function barangsatuanupdate(Request $request){
 	$id_satuan = $request->input('id_satuan');
 	$nama_satuan = $request->input('nama_satuan');
-	DB::table('supplier')
+	DB::table('satuan')
 	->where('id_satuan', $id_satuan)
 	->update(
 		['nama_satuan' => $nama_satuan]
@@ -229,7 +229,6 @@ public function barangjenisupdate(Request $request){
 public function barangbarangupdate(Request $request){
 	$id_barang = $request->input('id_barang');
 	$nama_barang = $request->input('nama_barang');
-	$stok = $request->input('stok');
 	$satuan_id = $request->input('satuan_id');
 	$jenis_id = $request->input('jenis_id');
 	DB::table('barang')
@@ -237,9 +236,28 @@ public function barangbarangupdate(Request $request){
 	->update(
 		[
 		'nama_barang' => $nama_barang, 
-		'stok' => $stok, 
 		'satuan_id' => $satuan_id, 
 		'jenis_id' => $jenis_id
+		]
+	);
+	return redirect()->back()->with('success', 'Data Anda Berhasil Diubah'); 
+}
+public function userupdate(Request $request){
+	$id_user = $request->input('id_user');
+	$nama = $request->input('nama');
+	$username = $request->input('username');
+	$email = $request->input('email');
+	$no_telp = $request->input('no_telp');
+	$role = $request->input('role');
+	DB::table('user')
+	->where('id_user', $id_user)
+	->update(
+		[
+		'nama' => $nama, 
+		'username' => $username, 
+		'email' => $email, 
+		'no_telp' =>$no_telp,
+		'role' =>$role
 		]
 	);
 	return redirect()->back()->with('success', 'Data Anda Berhasil Diubah'); 

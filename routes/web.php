@@ -58,11 +58,11 @@ Route::get('/barangmasuk/add/{id}', 'App\Http\Controllers\SingleController@baran
 Route::get('/barangkeluar/add', 'App\Http\Controllers\SingleController@barangkeluarinsertview');
 
 // update
-Route::post('/supplier/update', 'App\Http\Controllers\SingleController@supplierinsert');
-Route::post('/satuan/update', 'App\Http\Controllers\SingleController@barangsatuaninsert');
-Route::post('/jenis/update', 'App\Http\Controllers\SingleController@barangjenisinsert');
-Route::post('/barang/update', 'App\Http\Controllers\SingleController@barangbaranginsert');
-Route::post('/barangmasuk/update', 'App\Http\Controllers\SingleController@barangmasukinsert');
+Route::post('/supplier/update', 'App\Http\Controllers\SingleController@supplierupdate');
+Route::post('/satuan/update', 'App\Http\Controllers\SingleController@barangsatuanupdate');
+Route::post('/jenis/update', 'App\Http\Controllers\SingleController@barangjenisupdate');
+Route::post('/barang/update', 'App\Http\Controllers\SingleController@barangbarangupdate');
+Route::post('/user/update', 'App\Http\Controllers\SingleController@userupdate');
 Route::post('/barangkeluar/update', 'App\Http\Controllers\SingleController@barangkeluarinsert');
 
 //delete

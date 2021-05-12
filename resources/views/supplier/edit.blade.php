@@ -30,6 +30,8 @@
         </ul>
     </div>
 @endif
+<form method = "POST" action="/supplier/update">
+            {{ csrf_field() }}
                 <div class="row form-group">
                     <label class="col-md-3 text-md-right" for="nama_supplier">Nama Supplier</label>
                     <div class="col-md-9">
@@ -37,7 +39,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-fw fa-user"></i></span>
                             </div>
-                            <input value="<?= $supplier[0]->nama_supplier; ?>" name="nama_supplier" id="nama_supplier" type="text" class="form-control" placeholder="Nama Supplier...">
+                            <input value="<?= $supplier[0]->id_supplier; ?>" name="id_supplier" id="id_supplier" type="hidden" class="form-control" placeholder="id_supplier...">
+                                                    <input value="<?= $supplier[0]->nama_supplier; ?>" name="nama_supplier" id="nama_supplier" type="text" class="form-control" placeholder="Nama Supplier...">
                         </div>
                     </div>
                 </div>
@@ -69,6 +72,7 @@
                         <button type="reset" class="btn btn-secondary">Reset</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>

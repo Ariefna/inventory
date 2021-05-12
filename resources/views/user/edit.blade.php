@@ -30,9 +30,12 @@
         </ul>
     </div>
 @endif
+<form method = "POST" action="/user/update">
+            {{ csrf_field() }}
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="username">Username</label>
                     <div class="col-md-6">
+                        <input value="<?= $user[0]->id_user; ?>" type="hidden" id="id_user" name="id_user" class="form-control" placeholder="id_user">
                         <input value="<?= $user[0]->username; ?>" type="text" id="username" name="username" class="form-control" placeholder="Username">
                     </div>
                 </div>
@@ -78,6 +81,7 @@
                         <button type="reset" class="btn btn-secondary">Reset</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
