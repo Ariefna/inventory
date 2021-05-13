@@ -120,6 +120,28 @@ public function useraddview(){
 	$title = "Profile";
 	return view('user/add',['title' => $title]);
 }
+public function approvebarangmasukview(){
+	$title = "Master Barang Masuk";
+	$barangmasuk = DB::table('barang_masuk')
+	->join('user', 'barang_masuk.user_id', '=', 'user.id_user')
+	->join('supplier', 'barang_masuk.supplier_id', '=', 'supplier.id_supplier')
+	->join('barang', 'barang_masuk.barang_id', '=', 'barang.id_barang')
+	->join('satuan', 'satuan.id_satuan', '=', 'barang.satuan_id')
+	->get();
+	return view('barang_masuk_approve/data',['title' => $title,'barangmasuk' => $barangmasuk]);
+}
+public function approvebarangmasukdataview($id){
+	$title = "Master Barang Masuk";
+	$barangmasuk = DB::table('barang_masuk')
+	->join('user', 'barang_masuk.user_id', '=', 'user.id_user')
+	->join('supplier', 'barang_masuk.supplier_id', '=', 'supplier.id_supplier')
+	->join('barang', 'barang_masuk.barang_id', '=', 'barang.id_barang')
+	->join('satuan', 'satuan.id_satuan', '=', 'barang.satuan_id')
+	->where('id_barang_masuk', $id)
+	->get();
+	return view('barang_masuk_approve/data',['title' => $title,'barangmasuk' => $barangmasuk]);
+}
+
 
 
 
@@ -158,6 +180,30 @@ public function supplierinsert(Request $request){
 	);
 	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
 }   
+public function userinsert(Request $request){
+	$nama = $request->input('nama');
+	$username = $request->input('username');
+	$email = $request->input('email');
+	$no_telp = $request->input('no_telp');
+	$role = $request->input('role');
+	$password = md5($request->input('password'));
+	$foto = 'user.png';
+	$is_active = 1;
+	DB::table('user')->insert(
+		[
+			'username' => $username, 
+			'nama' => $nama, 
+		'email' => $email, 
+		'no_telp' => $no_telp, 
+		'role' => $role, 
+		'password' => $password, 
+		'foto' => $foto, 
+		'is_active' => $is_active
+		]
+	);
+	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
+}   
+
 public function barangsatuaninsert(Request $request){
 	$nama_satuan = $request->input('nama_satuan');
 	DB::table('satuan')->insert(
@@ -222,6 +268,7 @@ public function barangkeluarinsert(Request $request){
 	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
 }
 //update
+
 public function supplierupdate(Request $request){
 	$id_supplier = $request->input('id_supplier');
 	$nama_supplier = $request->input('nama_supplier');
@@ -266,6 +313,49 @@ public function barangbarangupdate(Request $request){
 		'nama_barang' => $nama_barang, 
 		'satuan_id' => $satuan_id, 
 		'jenis_id' => $jenis_id
+		]
+	);
+	return redirect()->back()->with('success', 'Data Anda Berhasil Diubah'); 
+}
+
+public function usertoggleupdate($id){
+	$id_user = $id;
+	$user = DB::table('user')->where('id_user', $id_user)->get();
+	if ($user[0]->is_active == 1) {
+		DB::table('user')
+	->where('id_user', $id_user)
+	->update(
+		[
+		'is_active' => 0
+		]
+	);
+	} else {
+		DB::table('user')
+	->where('id_user', $id_user)
+	->update(
+		[
+		'is_active' => 1
+		]
+	);
+	}
+	
+	
+	return redirect()->back()->with('success', 'Data Anda Berhasil Diubah'); 
+}
+public function profileupdate(Request $request){
+	$id_user = $request->input('id_user');
+	$nama = $request->input('nama');
+	$username = $request->input('username');
+	$email = $request->input('email');
+	$no_telp = $request->input('no_telp');
+	DB::table('user')
+	->where('id_user', $id_user)
+	->update(
+		[
+		'nama' => $nama, 
+		'username' => $username, 
+		'email' => $email, 
+		'no_telp' =>$no_telp
 		]
 	);
 	return redirect()->back()->with('success', 'Data Anda Berhasil Diubah'); 
@@ -317,6 +407,7 @@ public function barangbaranginsertview(){
 return view('barang/add',['title' => $title,'jenis' => $jenis,'satuan' => $satuan,'id_barang' => $id_barang]);
 }
 public function barangmasukinsertview(){
+	$title = "Tambah Data Barang Masuk";
 	$kode = 'T-BM-' . date('ymd');
             $kode_terakhir = DB::table('barang_masuk')->where('id_barang_masuk', 'like', '"%'.$kode.'%"')->max('id_barang_masuk');
 			DB::table('barang')->max('id_barang');
@@ -327,7 +418,7 @@ public function barangmasukinsertview(){
 	$supplier = DB::table('supplier')->get();
 	$barang = DB::table('barang')->get();
 	$satuan = DB::table('satuan')->get();
-	$title = "Tambah Data Barang Masuk";
+	 
 return view('barang_masuk/add',['title' => $title, 'supplier' => $supplier, 'barang' => $barang, 'id_barang_masuk' => $id_barang_masuk]);
 }
 

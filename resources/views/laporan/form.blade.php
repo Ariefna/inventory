@@ -9,6 +9,13 @@
                 </h4>
             </div>
             <div class="card-body">
+            @if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+@endif
             <form method = "POST" action="/laporan/hasil">
             {{ csrf_field() }}
                 <div class="row form-group">

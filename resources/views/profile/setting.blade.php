@@ -9,6 +9,15 @@
                 </h4>
             </div>
             <div class="card-body">
+            @if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+@endif
+            <form method = "POST" action="/profile/setting/update">
+            {{ csrf_field() }}
                 <div class="row form-group">
                     <label class="col-md-3 text-md-right" for="foto">Foto</label>
                     <div class="col-md-9">
@@ -30,6 +39,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-fw fa-user"></i></span>
                             </div>
+                            <input value="<?= $user[0]->id_user; ?>" name="id_user" id="id_user" type="hidden" class="form-control" placeholder="id_user...">
                             <input value="<?= $user[0]->username; ?>" name="username" id="username" type="text" class="form-control" placeholder="Username...">
                         </div>
                     </div>
@@ -75,6 +85,7 @@
                         <button type="reset" class="btn btn-secondary">Reset</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>

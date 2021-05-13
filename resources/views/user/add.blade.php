@@ -30,6 +30,8 @@
         </ul>
     </div>
 @endif
+<form method = "POST" action="/user/insert">
+            {{ csrf_field() }}
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="username">Username</label>
                     <div class="col-md-6">
@@ -92,6 +94,7 @@
                         </button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
