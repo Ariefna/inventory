@@ -64,7 +64,7 @@ Route::get('/barangmasuk/add/{id}', 'App\Http\Controllers\SingleController@baran
 Route::get('/barangkeluar/add', 'App\Http\Controllers\SingleController@barangkeluarinsertview');
 
 // update
-
+Route::post('/barangmasuk/approve/update/', 'App\Http\Controllers\SingleController@approvebarangmasukdataupdate');
 Route::post('/supplier/update', 'App\Http\Controllers\SingleController@supplierupdate');
 Route::post('/satuan/update', 'App\Http\Controllers\SingleController@barangsatuanupdate');
 Route::post('/jenis/update', 'App\Http\Controllers\SingleController@barangjenisupdate');

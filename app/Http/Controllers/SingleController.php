@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use File;
+
 
 class singlecontroller extends Controller
 {
@@ -46,6 +48,7 @@ public function barangmasukview(){
 	->join('supplier', 'barang_masuk.supplier_id', '=', 'supplier.id_supplier')
 	->join('barang', 'barang_masuk.barang_id', '=', 'barang.id_barang')
 	->join('satuan', 'satuan.id_satuan', '=', 'barang.satuan_id')
+	->where('status', 'approve')
 	->get();
 	return view('barang_masuk/data',['title' => $title,'barangmasuk' => $barangmasuk]);
 }
@@ -127,25 +130,26 @@ public function approvebarangmasukview(){
 	->join('supplier', 'barang_masuk.supplier_id', '=', 'supplier.id_supplier')
 	->join('barang', 'barang_masuk.barang_id', '=', 'barang.id_barang')
 	->join('satuan', 'satuan.id_satuan', '=', 'barang.satuan_id')
+	->where('status', 'proses')
 	->get();
 	return view('barang_masuk_approve/data',['title' => $title,'barangmasuk' => $barangmasuk]);
 }
 public function approvebarangmasukdataview($id){
-	$title = "Master Barang Masuk";
-	$barangmasuk = DB::table('barang_masuk')
-	->join('user', 'barang_masuk.user_id', '=', 'user.id_user')
-	->join('supplier', 'barang_masuk.supplier_id', '=', 'supplier.id_supplier')
-	->join('barang', 'barang_masuk.barang_id', '=', 'barang.id_barang')
-	->join('satuan', 'satuan.id_satuan', '=', 'barang.satuan_id')
-	->where('id_barang_masuk', $id)
-	->get();
-	return view('barang_masuk_approve/data',['title' => $title,'barangmasuk' => $barangmasuk]);
+	$kode = 'T-BM-' . date('ymd');
+            $kode_terakhir = DB::table('barang_masuk')->where('id_barang_masuk', 'like', '"%'.$kode.'%"')->max('id_barang_masuk');
+			DB::table('barang')->max('id_barang');
+            $kode_tambah = substr($kode_terakhir, -5, 5);
+            $kode_tambah++;
+            $number = str_pad($kode_tambah, 5, '0', STR_PAD_LEFT);
+            $id_barang_masuk = $kode . $number;
+	$supplier = DB::table('supplier')->get();
+	$barang = DB::table('barang')->get();
+	$satuan = DB::table('satuan')->get();
+	$barang_masuk = DB::table('barang_masuk')->where('id_barang_masuk', $id)->get();
+	// dd($barang_masuk);
+	$title = "Approve Data Barang Masuk";
+return view('barang_masuk_approve/edit',['title' => $title, 'supplier' => $supplier, 'barang' => $barang, 'id_barang_masuk' => $id_barang_masuk, 'id' => $id, 'barang_masuk' => $barang_masuk]);
 }
-
-
-
-
-
 
 // edit view
 public function supplieredit($id){
@@ -268,7 +272,34 @@ public function barangkeluarinsert(Request $request){
 	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
 }
 //update
+public function approvebarangmasukdataupdate(Request $request){
+	if($request->hasfile('filenames')) {
+		$name = time().rand(1,100).'.'.$request->file('filenames')->extension();
+                $request->file('filenames')->move(public_path('files'), $name);  
+                $files = $name; 
+				$file= new File();
+        //  $request->file('filenames')->filenames = $files;
+        //  $request->file('filenames')->save();
 
+		 $destinationPath = public_path('/images/productImages/');
+        $uploadedImage->move($destinationPath, $name);
+		 DB::table('barang_masuk')
+	->where('id_barang_masuk', $request->input('$id'))
+	->update(
+		['status' => 'approve','gambar' => $name]
+	);
+	} else {
+		DB::table('barang_masuk')
+		->where('id_barang_masuk', $request->input('$id'))
+		->update(
+			['status' => 'approve']
+		);
+	}
+	
+	
+	return redirect('/approvebarangmasuk')->with('success', 'Data Anda Berhasil Diubah'); 
+	
+}
 public function supplierupdate(Request $request){
 	$id_supplier = $request->input('id_supplier');
 	$nama_supplier = $request->input('nama_supplier');
