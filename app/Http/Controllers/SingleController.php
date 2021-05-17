@@ -1,12 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use File;
-
-
+use Session;
 class singlecontroller extends Controller
 {
     public function index(){
@@ -19,6 +16,33 @@ class singlecontroller extends Controller
         $barang_masuk = DB::table('barang_masuk')->join('barang', 'barang.id_barang', '=', 'barang_masuk.barang_id')->get();
         $barang_keluar = DB::table('barang_keluar')->join('barang', 'barang.id_barang', '=', 'barang_keluar.barang_id')->get();
     	return view('dashboard',['title' => $title, 'barang' => $barang, 'supplier' => $supplier, 'stok' => $stok, 'user' => $user, 'barang_min' => $barang_min, 'barang_masuk' => $barang_masuk, 'barang_keluar' => $barang_keluar]);
+    }
+	public function logout(){
+		Session::forget('role');
+		return redirect('/login'); 
+	}
+		public function login(){
+		$title = "Login";
+    	return view('auth/login',['title' => $title]);
+    }
+	public function login_request(Request $request){
+		$user = DB::table('user')->where('username', $request->input('username'))->where('password', md5($request->input('password')))->get();
+		if (!$user->count()) {
+			return redirect('/login')->with('failed', 'Maaf, username atau password salah');
+		}else {
+			$request->session()->put('role', $user[0]->role);
+			if ($user[0]->role == "admin") {
+				return redirect('/');
+			} 
+			else if ($user[0]->role == "gudang") {
+				return redirect('/barangmasuk/add');
+			} 
+			else if ($user[0]->role == "lurah") {
+				return redirect('/');
+			}else {
+				return redirect('/logout');
+			}
+	}
     }
     public function supplierview(){
     	$title = "Master Supplier";
@@ -72,10 +96,6 @@ public function laporanhasilview(Request $request){
 	$datestart = $tanggal[0];
 	$dateend = $tanggal[1];
 	$title = "List Hasil Laporan Dari Tanggal ".$datestart." ".$dateend;
-	// $datestart = $request->input('tanggal');
-	// $dateend = $request->input('tanggal');
-	
-
 	if ("barang_keluar" == $request->input('transaksi')) {
 		$barangkeluar = DB::table('barang_keluar')
 		->join('user', 'barang_keluar.user_id', '=', 'user.id_user')
@@ -146,7 +166,6 @@ public function approvebarangmasukdataview($id){
 	$barang = DB::table('barang')->get();
 	$satuan = DB::table('satuan')->get();
 	$barang_masuk = DB::table('barang_masuk')->where('id_barang_masuk', $id)->get();
-	// dd($barang_masuk);
 	$title = "Approve Data Barang Masuk";
 return view('barang_masuk_approve/edit',['title' => $title, 'supplier' => $supplier, 'barang' => $barang, 'id_barang_masuk' => $id_barang_masuk, 'id' => $id, 'barang_masuk' => $barang_masuk]);
 }
@@ -207,7 +226,6 @@ public function userinsert(Request $request){
 	);
 	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
 }   
-
 public function barangsatuaninsert(Request $request){
 	$nama_satuan = $request->input('nama_satuan');
 	DB::table('satuan')->insert(
@@ -276,27 +294,19 @@ public function approvebarangmasukdataupdate(Request $request){
 	if($request->hasfile('filenames')) {
 		$name = time().rand(1,100).'.'.$request->file('filenames')->extension();
                 $request->file('filenames')->move(public_path('files'), $name);  
-                $files = $name; 
-				$file= new File();
-        //  $request->file('filenames')->filenames = $files;
-        //  $request->file('filenames')->save();
-
-		 $destinationPath = public_path('/images/productImages/');
-        $uploadedImage->move($destinationPath, $name);
-		 DB::table('barang_masuk')
-	->where('id_barang_masuk', $request->input('$id'))
+		 $data = DB::table('barang_masuk')
+	->where('id_barang_masuk', $request->input('id'))
 	->update(
 		['status' => 'approve','gambar' => $name]
 	);
 	} else {
 		DB::table('barang_masuk')
-		->where('id_barang_masuk', $request->input('$id'))
+		->where('id_barang_masuk', $request->input('id'))
 		->update(
 			['status' => 'approve']
 		);
 	}
-	
-	
+	// dd(DB::getQueryLog());
 	return redirect('/approvebarangmasuk')->with('success', 'Data Anda Berhasil Diubah'); 
 	
 }
@@ -428,7 +438,6 @@ public function barangjenisinsertview(){
 public function barangbaranginsertview(){
 	$jenis = DB::table('jenis')->get();
 	$satuan = DB::table('satuan')->get();
-
 	$kode_terakhir = DB::table('barang')->max('id_barang');
 	$kode_tambah = substr($kode_terakhir, -6, 6);
 	$kode_tambah++;

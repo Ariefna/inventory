@@ -35,8 +35,8 @@
                <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="id_barang_masuk">ID Transaksi Barang Masuk</label>
                     <div class="col-md-4">
-                        <input disabled="disabled" value="{{ $id_barang_masuk }}" type="text"  class="form-control">
-                        <input value="{{ $id_barang_masuk }}" name="id" type="hidden"  class="form-control">
+                        <input disabled="disabled" value="{{ $barang_masuk[0]->id_barang_masuk }}" type="text"  class="form-control">
+                        <input value="{{ $barang_masuk[0]->id_barang_masuk }}" name="id" type="hidden"  class="form-control">
                     </div>
                 </div>
                 <div class="row form-group">

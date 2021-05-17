@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('templates/dashboard');
-// });
+Route::get('/login', 'App\Http\Controllers\SingleController@login');
+Route::post('/login', 'App\Http\Controllers\SingleController@login_request');
+Route::get('/logout', 'App\Http\Controllers\SingleController@logout');
+Route::middleware(['admin'])->group(function () {
 Route::get('/', 'App\Http\Controllers\SingleController@index');
 Route::get('/dashboard', 'App\Http\Controllers\SingleController@index');
 Route::get('/supplier', 'App\Http\Controllers\SingleController@supplierview');
@@ -80,4 +81,49 @@ Route::get('/jenis/delete/{id}', 'App\Http\Controllers\SingleController@jenisdel
 Route::get('/barang/delete/{id}', 'App\Http\Controllers\SingleController@barangdelete');
 Route::get('/barangmasuk/delete/{id}', 'App\Http\Controllers\SingleController@barangmasukdelete');
 Route::get('/barangkeluar/delete/{id}', 'App\Http\Controllers\SingleController@barangkeluardelete');
+});
+Route::middleware(['gudang'])->group(function () {
+    Route::get('/barangmasuk/add', 'App\Http\Controllers\SingleController@barangmasukinsertview');
+    Route::post('/barangmasuk/insert', 'App\Http\Controllers\SingleController@barangmasukinsert');
+    Route::get('/barangmasuk/add/{id}', 'App\Http\Controllers\SingleController@barangmasukinsertviewdua');
+    Route::get('/barang/add', 'App\Http\Controllers\SingleController@barangbaranginsertview');
+    Route::get('/supplier/add', 'App\Http\Controllers\SingleController@supplierinsertview');
+    Route::post('/barang/insert', 'App\Http\Controllers\SingleController@barangbaranginsert');
+Route::post('/barangmasuk/insert', 'App\Http\Controllers\SingleController@barangmasukinsert');
+});
+Route::middleware(['lurah'])->group(function () {
+    Route::get('/', 'App\Http\Controllers\SingleController@index');
+Route::get('/dashboard', 'App\Http\Controllers\SingleController@index');
+Route::get('/supplier', 'App\Http\Controllers\SingleController@supplierview');
+Route::get('/satuan', 'App\Http\Controllers\SingleController@barangsatuanview');
+Route::get('/jenis', 'App\Http\Controllers\SingleController@barangjenisview');
+Route::get('/barang', 'App\Http\Controllers\SingleController@barangbarangview');
+Route::get('/barangmasuk', 'App\Http\Controllers\SingleController@barangmasukview');
+
+Route::get('/barangkeluar', 'App\Http\Controllers\SingleController@barangkeluarview');
+Route::get('/approvebarangmasuk', 'App\Http\Controllers\SingleController@approvebarangmasukview');
+Route::get('/barangmasuk/approve/{id}', 'App\Http\Controllers\SingleController@approvebarangmasukdataview');
+
+Route::get('/laporan', 'App\Http\Controllers\SingleController@laporanview');
+Route::POST('/laporan/hasil/', 'App\Http\Controllers\SingleController@laporanhasilview');
+
+// edit view
+
+// insert
+
+// insert view
+Route::get('/profile', 'App\Http\Controllers\SingleController@profileview');
+Route::get('/profile/setting', 'App\Http\Controllers\SingleController@profilesettingview');
+Route::get('/profile/ubahpassword', 'App\Http\Controllers\SingleController@profileubahpasswordview');
+
+
+
+// update
+Route::post('/user/update', 'App\Http\Controllers\SingleController@userupdate');
+Route::GET('/user/toggle/{id}', 'App\Http\Controllers\SingleController@usertoggleupdate');
+Route::post('/profile/setting/update', 'App\Http\Controllers\SingleController@profileupdate');
+
+//delete
+
+});
 
