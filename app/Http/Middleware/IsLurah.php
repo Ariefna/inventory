@@ -19,10 +19,10 @@ class IsLurah
     public function handle(Request $request, Closure $next)
     {
         if (session()->has('role')) {
-            if (Session::get('role') == 'lurah') {
+            if (Session::get('role') == 'lurah' || Session::get('role') == 'admin') {
             return $next($request);
             }else {
-                return redirect('/login')->with('failed', 'Maaf, Anda Tidak Ada Akses Ke Halaman Tertentu');
+                return redirect()->back()->with('failed', 'Maaf, Anda Tidak Ada Akses Ke Halaman Tertentu');
             }
         }
     return redirect('/login');

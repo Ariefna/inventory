@@ -30,6 +30,13 @@
         </ul>
     </div>
 @endif
+@if (\Session::has('failed'))
+    <div class="alert alert-danger">
+        <ul>
+            <li>{!! \Session::get('failed') !!}</li>
+        </ul>
+    </div>
+@endif
 <form method = "POST" action="/barangmasuk/approve/update" enctype="multipart/form-data">
             {{ csrf_field() }}
                <div class="row form-group">

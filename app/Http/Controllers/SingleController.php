@@ -15,7 +15,17 @@ class singlecontroller extends Controller
         $barang_min = DB::table('barang')->get();
         $barang_masuk = DB::table('barang_masuk')->join('barang', 'barang.id_barang', '=', 'barang_masuk.barang_id')->get();
         $barang_keluar = DB::table('barang_keluar')->join('barang', 'barang.id_barang', '=', 'barang_keluar.barang_id')->get();
-    	return view('dashboard',['title' => $title, 'barang' => $barang, 'supplier' => $supplier, 'stok' => $stok, 'user' => $user, 'barang_min' => $barang_min, 'barang_masuk' => $barang_masuk, 'barang_keluar' => $barang_keluar]);
+		$bln = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+        $data['cbm'] = [];
+        $data['cbk'] = [];
+
+        foreach ($bln as $b) {
+			$like = 'T-BM-' . date('y') . $b;
+            $data['cbm'][] = DB::table('barang_masuk')->where('id_barang_masuk', 'like', '"%'.$like.'%"')->get();
+			$like = 'T-BK-' . date('y') . $b;
+            $data['cbk'][] = DB::table('barang_keluar')->where('id_barang_keluar', 'like', '"%'.$like.'%"')->get();
+        }
+    	return view('dashboard',['title' => $title, 'barang' => $barang, 'supplier' => $supplier, 'stok' => $stok, 'user' => $user, 'barang_min' => $barang_min, 'barang_masuk' => $barang_masuk, 'barang_keluar' => $barang_keluar, 'data' => $data]);
     }
 	public function logout(){
 		Session::forget('role');
@@ -31,14 +41,18 @@ class singlecontroller extends Controller
 			return redirect('/login')->with('failed', 'Maaf, username atau password salah');
 		}else {
 			$request->session()->put('role', $user[0]->role);
-			if ($user[0]->role == "admin") {
+			if (Session::get('role') == "admin") {
 				return redirect('/');
+				// echo "admin";
 			} 
-			else if ($user[0]->role == "gudang") {
+			else if (Session::get('role') == "gudang") {
 				return redirect('/barangmasuk/add');
+				// echo "gudang";
 			} 
-			else if ($user[0]->role == "lurah") {
+			else if (Session::get('role') == "lurah") {
 				return redirect('/');
+				// $request->session()->put('role', $user[0]->role);
+				// echo Session::get('role');
 			}else {
 				return redirect('/logout');
 			}

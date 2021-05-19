@@ -22,7 +22,7 @@ class IsGudang
             if (Session::get('role') == 'gudang') {
             return $next($request);
             }else {
-                return redirect('/login')->with('failed', 'Maaf, Anda Tidak Ada Akses Ke Halaman Tertentu');
+                return redirect()->back()->with('failed', 'Maaf, Anda Tidak Ada Akses Ke Halaman Tertentu');
             }
         }
     return redirect('/login');

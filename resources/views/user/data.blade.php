@@ -7,6 +7,13 @@
         </ul>
     </div>
 @endif
+@if (\Session::has('failed'))
+    <div class="alert alert-danger">
+        <ul>
+            <li>{!! \Session::get('failed') !!}</li>
+        </ul>
+    </div>
+@endif
 <div class="card shadow-sm mb-4 border-bottom-primary">
     <div class="card-header bg-white py-3">
         <div class="row">

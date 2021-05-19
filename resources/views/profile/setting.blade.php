@@ -16,6 +16,13 @@
         </ul>
     </div>
 @endif
+@if (\Session::has('failed'))
+    <div class="alert alert-danger">
+        <ul>
+            <li>{!! \Session::get('failed') !!}</li>
+        </ul>
+    </div>
+@endif
             <form method = "POST" action="/profile/setting/update">
             {{ csrf_field() }}
                 <div class="row form-group">
