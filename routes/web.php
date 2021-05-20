@@ -46,6 +46,7 @@ Route::post('/satuan/insert', 'App\Http\Controllers\SingleController@barangsatua
 Route::post('/jenis/insert', 'App\Http\Controllers\SingleController@barangjenisinsert');
 Route::post('/barang/insert', 'App\Http\Controllers\SingleController@barangbaranginsert');
 Route::post('/barangmasuk/insert', 'App\Http\Controllers\SingleController@barangmasukinsert');
+Route::post('/barangmasuk/insert2', 'App\Http\Controllers\SingleController@barangmasukinsert2');
 Route::post('/barangkeluar/insert', 'App\Http\Controllers\SingleController@barangkeluarinsert');
 Route::post('/user/insert', 'App\Http\Controllers\SingleController@userinsert');
 
@@ -101,6 +102,9 @@ Route::get('/satuan', 'App\Http\Controllers\SingleController@barangsatuanview');
 Route::get('/jenis', 'App\Http\Controllers\SingleController@barangjenisview');
 Route::get('/barang', 'App\Http\Controllers\SingleController@barangbarangview');
 Route::get('/barangmasuk', 'App\Http\Controllers\SingleController@barangmasukview');
+
+Route::get('/pengajuanbarangmasuk', 'App\Http\Controllers\SingleController@pengajuanbarangmasukview');
+
 Route::get('/barangkeluar', 'App\Http\Controllers\SingleController@barangkeluarview');
 Route::get('/approvebarangmasuk', 'App\Http\Controllers\SingleController@approvebarangmasukview');
 Route::get('/barangmasuk/approve/{id}', 'App\Http\Controllers\SingleController@approvebarangmasukdataview');

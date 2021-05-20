@@ -23,14 +23,14 @@
                 </h4>
             </div>
             <div class="col-auto">
-                <a href="<?=URL::to('/');?>/barangmasuk/add" class="btn btn-sm btn-primary btn-icon-split">
+                <!-- <a href="<?=URL::to('/');?>/barangmasuk/add" class="btn btn-sm btn-primary btn-icon-split">
                     <span class="icon">
                         <i class="fa fa-plus"></i>
                     </span>
                     <span class="text">
                         Input Barang Masuk
                     </span>
-                </a>
+                </a> -->
             </div>
         </div>
     </div>

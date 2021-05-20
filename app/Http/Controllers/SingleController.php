@@ -90,6 +90,22 @@ public function barangmasukview(){
 	->get();
 	return view('barang_masuk/data',['title' => $title,'barangmasuk' => $barangmasuk]);
 }
+public function pengajuanbarangmasukview(){
+	$title = "Tambah Data Request Barang Masuk";
+	$kode = 'T-BM-' . date('ymd');
+            $kode_terakhir = DB::table('barang_masuk')->where('id_barang_masuk', 'like', '"%'.$kode.'%"')->max('id_barang_masuk');
+			DB::table('barang')->max('id_barang');
+            $kode_tambah = substr($kode_terakhir, -5, 5);
+            $kode_tambah++;
+            $number = str_pad($kode_tambah, 5, '0', STR_PAD_LEFT);
+            $id_barang_masuk = $kode . $number;
+	$supplier = DB::table('supplier')->get();
+	$barang = DB::table('barang')->get();
+	$satuan = DB::table('satuan')->get();
+	 
+return view('barang_masuk/request',['title' => $title, 'supplier' => $supplier, 'barang' => $barang, 'id_barang_masuk' => $id_barang_masuk]);
+
+}
 public function barangkeluarview(){
 	$title = "Master Barang Keluar";
 	$barangkeluar = DB::table('barang_keluar')
@@ -303,6 +319,33 @@ public function barangkeluarinsert(Request $request){
 	);
 	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
 }
+public function barangmasukinsert2(Request $request){
+	if($request->hasfile('filenames')) {
+		$name = time().rand(1,100).'.'.$request->file('filenames')->extension();
+                $request->file('filenames')->move(public_path('files'), $name);  
+	$id_barang_masuk = $request->input('id_barang_masuk');
+	$supplier_id = $request->input('supplier_id');
+	$user_id = $request->input('user_id');
+	$barang_id = $request->input('barang_id');
+	$jumlah_masuk = $request->input('jumlah_masuk');
+	$tanggal_masuk = $request->input('tanggal_masuk');
+	DB::table('barang_masuk')->insert(
+		['id_barang_masuk' => $id_barang_masuk, 
+		'supplier_id' => $supplier_id, 
+		'user_id' => $user_id, 
+		'barang_id' => $barang_id, 
+		'jumlah_masuk' => $jumlah_masuk, 
+		'tanggal_masuk' => $tanggal_masuk,
+		'bukti_acc' => $name
+		]
+	);
+	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
+	} 
+	// dd(DB::getQueryLog());
+	return redirect('/approvebarangmasuk')->with('success', 'Data Anda Berhasil Diubah'); 
+	
+}
+
 //update
 public function approvebarangmasukdataupdate(Request $request){
 	if($request->hasfile('filenames')) {

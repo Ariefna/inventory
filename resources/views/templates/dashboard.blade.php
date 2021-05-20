@@ -110,6 +110,12 @@
                     <span>Approve Barang Masuk</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link pb-0" href="<?=URL::to('/');?>/pengajuanbarangmasuk">
+                    <i class="fas fa-fw fa-download"></i>
+                    <span>Pengajuan Barang Masuk</span>
+                </a>
+            </li>
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
