@@ -48,7 +48,10 @@
                 </div>
                 <div class="sidebar-brand-text mx-3">Pengadaan Barang</div>
             </a>
-
+            @if (Session::get('role') == "gudang")
+            <hr class="sidebar-divider">
+            @endif
+            @if (Session::get('role') == "lurah" || Session::get('role') == "admin")
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link" href="<?=URL::to('/');?>/dashboard" >
@@ -56,7 +59,7 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-
+         
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -91,12 +94,12 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-
+        @endif
             <!-- Heading -->
             <div class="sidebar-heading">
                 Transaksi
             </div>
-
+            @if (Session::get('role') == "lurah" || Session::get('role') == "admin")
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link pb-0" href="<?=URL::to('/');?>/barangmasuk">
@@ -110,12 +113,16 @@
                     <span>Approve Barang Masuk</span>
                 </a>
             </li>
+            @endif
+            @if (Session::get('role') == "gudang" || Session::get('role') == "admin")
             <li class="nav-item">
                 <a class="nav-link pb-0" href="<?=URL::to('/');?>/pengajuanbarangmasuk">
                     <i class="fas fa-fw fa-download"></i>
                     <span>Pengajuan Barang Masuk</span>
                 </a>
             </li>
+            @endif
+            @if (Session::get('role') == "lurah" || Session::get('role') == "admin")
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
@@ -156,6 +163,7 @@
                         <span>User Management</span>
                     </a>
                 </li>
+                @endif
             <?php /*endif;*/ ?>
 
             <!-- Divider -->

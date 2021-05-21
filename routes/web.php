@@ -93,6 +93,7 @@ Route::middleware(['gudang'])->group(function () {
     Route::get('/supplier/add', 'App\Http\Controllers\SingleController@supplierinsertview');
     Route::post('/barang/insert', 'App\Http\Controllers\SingleController@barangbaranginsert');
     Route::post('/barangmasuk/insert', 'App\Http\Controllers\SingleController@barangmasukinsert');
+    Route::get('/pengajuanbarangmasuk', 'App\Http\Controllers\SingleController@pengajuanbarangmasukview');
 });
 Route::group(['middleware' => ['lurah']], function() {
 Route::get('/', 'App\Http\Controllers\SingleController@index');
@@ -103,7 +104,7 @@ Route::get('/jenis', 'App\Http\Controllers\SingleController@barangjenisview');
 Route::get('/barang', 'App\Http\Controllers\SingleController@barangbarangview');
 Route::get('/barangmasuk', 'App\Http\Controllers\SingleController@barangmasukview');
 
-Route::get('/pengajuanbarangmasuk', 'App\Http\Controllers\SingleController@pengajuanbarangmasukview');
+
 
 Route::get('/barangkeluar', 'App\Http\Controllers\SingleController@barangkeluarview');
 Route::get('/approvebarangmasuk', 'App\Http\Controllers\SingleController@approvebarangmasukview');

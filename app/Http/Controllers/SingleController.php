@@ -41,18 +41,15 @@ class singlecontroller extends Controller
 			return redirect('/login')->with('failed', 'Maaf, username atau password salah');
 		}else {
 			$request->session()->put('role', $user[0]->role);
+			$request->session()->put('id_user', $user[0]->id_user);
 			if (Session::get('role') == "admin") {
 				return redirect('/');
-				// echo "admin";
 			} 
 			else if (Session::get('role') == "gudang") {
-				return redirect('/barangmasuk/add');
-				// echo "gudang";
+				return redirect('/pengajuanbarangmasuk');
 			} 
 			else if (Session::get('role') == "lurah") {
 				return redirect('/');
-				// $request->session()->put('role', $user[0]->role);
-				// echo Session::get('role');
 			}else {
 				return redirect('/logout');
 			}
@@ -121,7 +118,6 @@ public function laporanview(){
 }
 
 public function laporanhasilview(Request $request){
-	// dd($request->all());
 	$tanggal =explode("-",str_replace(' ', '', $request->input('tanggal')));
 	$datestart = $tanggal[0];
 	$dateend = $tanggal[1];
@@ -145,17 +141,17 @@ public function laporanhasilview(Request $request){
 }
 public function profileview(){
 	$title = "Profile";
-	$user = DB::table('user')->where('id_user', 1)->get();
+	$user = DB::table('user')->where('id_user', Session::get('id_user'))->get();
 	return view('profile/user',['title' => $title,'user' => $user]);
 }
 public function profilesettingview(){
 	$title = "Profile";
-	$user = DB::table('user')->where('id_user', 1)->get();
+	$user = DB::table('user')->where('id_user', Session::get('id_user'))->get();
 	return view('profile/setting',['title' => $title,'user' => $user]);
 }
 public function profileubahpasswordview(){
 	$title = "Profile";
-	$user = DB::table('user')->where('id_user', 1)->get();
+	$user = DB::table('user')->where('id_user', Session::get('id_user'))->get();
 	return view('profile/ubahpassword',['title' => $title,'user' => $user]);
 }
 public function userview(){
@@ -341,7 +337,6 @@ public function barangmasukinsert2(Request $request){
 	);
 	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
 	} 
-	// dd(DB::getQueryLog());
 	return redirect('/approvebarangmasuk')->with('success', 'Data Anda Berhasil Diubah'); 
 	
 }
@@ -363,7 +358,6 @@ public function approvebarangmasukdataupdate(Request $request){
 			['status' => 'approve']
 		);
 	}
-	// dd(DB::getQueryLog());
 	return redirect('/approvebarangmasuk')->with('success', 'Data Anda Berhasil Diubah'); 
 	
 }

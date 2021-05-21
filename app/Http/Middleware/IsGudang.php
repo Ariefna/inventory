@@ -19,7 +19,7 @@ class IsGudang
     public function handle(Request $request, Closure $next)
     {
         if (session()->has('role')) {
-            if (Session::get('role') == 'gudang') {
+            if (Session::get('role') == 'gudang' || Session::get('role') == 'admin') {
             return $next($request);
             }else {
                 return redirect()->back()->with('failed', 'Maaf, Anda Tidak Ada Akses Ke Halaman Tertentu');
