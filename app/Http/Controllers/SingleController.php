@@ -27,8 +27,26 @@ class singlecontroller extends Controller
         }
     	return view('dashboard',['title' => $title, 'barang' => $barang, 'supplier' => $supplier, 'stok' => $stok, 'user' => $user, 'barang_min' => $barang_min, 'barang_masuk' => $barang_masuk, 'barang_keluar' => $barang_keluar, 'data' => $data]);
     }
-	public function print(){
-		return view('laporan/print');
+	public function printmulti(Request $request){
+		$barangmasuk = DB::table('barang_masuk')
+		->join('user', 'barang_masuk.user_id', '=', 'user.id_user')
+		->join('supplier', 'barang_masuk.supplier_id', '=', 'supplier.id_supplier')
+		->join('barang', 'barang_masuk.barang_id', '=', 'barang.id_barang')
+		->join('satuan', 'satuan.id_satuan', '=', 'barang.satuan_id')
+		->where('status', 'approve')
+		->get();
+		return view('laporan/print',['barangmasuk' => $barangmasuk]);
+	}
+	
+	public function print($id){
+		$barangmasuk = DB::table('barang_masuk')
+		->join('user', 'barang_masuk.user_id', '=', 'user.id_user')
+		->join('supplier', 'barang_masuk.supplier_id', '=', 'supplier.id_supplier')
+		->join('barang', 'barang_masuk.barang_id', '=', 'barang.id_barang')
+		->join('satuan', 'satuan.id_satuan', '=', 'barang.satuan_id')
+		->where('barang_masuk.id_barang_masuk', $id)
+		->get();
+		return view('laporan/print',['barangmasuk' => $barangmasuk]);
 	}
 		public function logout(){
 		Session::forget('role');

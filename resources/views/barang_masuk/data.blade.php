@@ -64,7 +64,7 @@
                             <td><?= $bm->nama; ?></td>
                             <td>
                                 <a onclick="return confirm('Yakin ingin hapus?')" href="<?=URL::to('/');?>/barangmasuk/delete/<?= $bm->id_barang_masuk; ?>" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></a>
-                                <a  href="<?=URL::to('/');?>/barangmasuk/print/<?= $bm->id_barang_masuk; ?>" class="btn btn-success btn-circle btn-sm"><i class="fa fa-print"></i></a>
+                                <a  href="<?=URL::to('/');?>/print/<?= $bm->id_barang_masuk; ?>" class="btn btn-success btn-circle btn-sm"><i class="fa fa-print"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
