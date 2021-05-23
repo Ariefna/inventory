@@ -27,6 +27,8 @@ class singlecontroller extends Controller
         }
     	return view('dashboard',['title' => $title, 'barang' => $barang, 'supplier' => $supplier, 'stok' => $stok, 'user' => $user, 'barang_min' => $barang_min, 'barang_masuk' => $barang_masuk, 'barang_keluar' => $barang_keluar, 'data' => $data]);
     }
+	
+	
 	public function printmulti(Request $request){
 		$barangmasuk = DB::table('barang_masuk')
 		->join('user', 'barang_masuk.user_id', '=', 'user.id_user')
@@ -38,7 +40,15 @@ class singlecontroller extends Controller
 		return view('laporan/print',['barangmasuk' => $barangmasuk]);
 	}
 	
-	public function print($id){
+	public function jsonbarang($id){
+		$barang = DB::table('barang')
+		->where('id_barang', $id)
+		->get();
+		$encodedSku = json_encode($barang);
+print_r($encodedSku);
+
+	}
+		public function print($id){
 		$barangmasuk = DB::table('barang_masuk')
 		->join('user', 'barang_masuk.user_id', '=', 'user.id_user')
 		->join('supplier', 'barang_masuk.supplier_id', '=', 'supplier.id_supplier')

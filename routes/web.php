@@ -17,7 +17,9 @@ Route::get('/login', 'App\Http\Controllers\SingleController@login');
 Route::post('/login', 'App\Http\Controllers\SingleController@login_request');
 Route::get('/logout', 'App\Http\Controllers\SingleController@logout');
 Route::get('/print/{id}', 'App\Http\Controllers\SingleController@print');
+Route::get('/barang/getstok/{id}', 'App\Http\Controllers\SingleController@jsonbarang');
 Route::post('/printmulti', 'App\Http\Controllers\SingleController@printmulti');
+
 
 Route::middleware(['admin'])->group(function () {
 // Route::get('/', 'App\Http\Controllers\SingleController@index');

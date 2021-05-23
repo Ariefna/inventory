@@ -102,4 +102,34 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+        let satuan = $('#satuan');
+        let stok = $('#stok');
+        let total = $('#total_stok');
+        let jumlah = $('#jumlah_keluar');
+        // let jumlah == 'barangmasuk' ? $('#jumlah_masuk') : $('#jumlah_keluar');
+
+        $(document).on('change', '#barang_id', function() {
+            let url = '<?=URL::to('/');?>/barang/getstok/' + this.value;
+            console.log(url);
+            $.getJSON(url, function(data) {
+                satuan.html(data[0].nama_satuan);
+                stok.val(data[0].stok);
+                total.val(data[0].stok);
+                jumlah.focus();
+            });
+        });
+
+        $(document).on('keyup', '#jumlah_masuk', function() {
+            let totalStok = parseInt(stok.val()) + parseInt(this.value);
+            total.val(Number(totalStok));
+        });
+
+        $(document).on('keyup', '#jumlah_keluar', function() {
+            let totalStok = parseInt(stok.val()) - parseInt(this.value);
+            total.val(Number(totalStok));
+        });
+    </script>
 @stop
