@@ -72,10 +72,12 @@
                     <label class="col-md-4 text-md-right" for="barang_id">Barang</label>
                     <div class="col-md-5">
                         <div class="input-group">
-                            <select disabled="disabled" name="barang_id" id="barang_id" class="custom-select">
+                            <select readonly="readonly" name="barang_id" id="barang_id" class="custom-select">
                                 <option value="" selected disabled>Pilih Barang</option>
                                 <?php foreach ($barang as $b) : ?>
-                                    <option  value="<?= $b->id_barang; ?>" <?= ($barang_masuk[0]->barang_id == $b->id_barang) ? 'selected '.$stok = $b->stok : ''; ?>><?= $b->id_barang; ?> | <?= $b->nama_barang; ?></option>
+                                @if($barang_masuk[0]->barang_id == $b->id_barang)
+                                    <option  value="<?= $b->id_barang; ?>" <?= ($barang_masuk[0]->barang_id == $b->id_barang) ? 'selected disabled'.$stok = $b->stok : ''; ?>><?= $b->id_barang; ?> | <?= $b->nama_barang; ?></option>
+                                @endif
                                 <?php endforeach; ?>
                             </select>
                             <div class="input-group-append">
@@ -94,7 +96,7 @@
                     <label class="col-md-4 text-md-right" for="jumlah_masuk">Jumlah Masuk</label>
                     <div class="col-md-5">
                         <div class="input-group">
-                            <input disabled="disabled" value="<?= $barang_masuk[0]->jumlah_masuk; ?>" name="jumlah_masuk" id="jumlah_masuk" type="number" class="form-control" placeholder="Jumlah Masuk...">
+                            <input readonly="readonly" name="stok" value="<?= $barang_masuk[0]->jumlah_masuk; ?>" name="jumlah_masuk" id="jumlah_masuk" type="number" class="form-control" placeholder="Jumlah Masuk...">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="satuan">Satuan</span>
                             </div>

@@ -27,7 +27,10 @@ class singlecontroller extends Controller
         }
     	return view('dashboard',['title' => $title, 'barang' => $barang, 'supplier' => $supplier, 'stok' => $stok, 'user' => $user, 'barang_min' => $barang_min, 'barang_masuk' => $barang_masuk, 'barang_keluar' => $barang_keluar, 'data' => $data]);
     }
-	public function logout(){
+	public function print(){
+		return view('laporan/print');
+	}
+		public function logout(){
 		Session::forget('role');
 		return redirect('/login'); 
 	}
@@ -313,22 +316,25 @@ public function barangkeluarinsert(Request $request){
 		'tanggal_keluar' => $tanggal_keluar
 		]
 	);
+	DB::table('barang')
+	->where('id_barang', $barang_id)
+	->update(['stok' => DB::raw('stok - ' . $jumlah_keluar)]);
 	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
 }
 public function barangmasukinsert2(Request $request){
 	if($request->hasfile('filenames')) {
 		$name = time().rand(1,100).'.'.$request->file('filenames')->extension();
                 $request->file('filenames')->move(public_path('files'), $name);  
-	$id_barang_masuk = $request->input('id_barang_masuk');
 	$supplier_id = $request->input('supplier_id');
-	$user_id = $request->input('user_id');
+	// $user_id = $request->input('user_id');
+	$id_barang_masuk = $request->input('id_barang_masuk');
 	$barang_id = $request->input('barang_id');
 	$jumlah_masuk = $request->input('jumlah_masuk');
 	$tanggal_masuk = $request->input('tanggal_masuk');
 	DB::table('barang_masuk')->insert(
 		['id_barang_masuk' => $id_barang_masuk, 
 		'supplier_id' => $supplier_id, 
-		'user_id' => $user_id, 
+		'user_id' => Session::get('id_user'), 
 		'barang_id' => $barang_id, 
 		'jumlah_masuk' => $jumlah_masuk, 
 		'tanggal_masuk' => $tanggal_masuk,
@@ -337,7 +343,8 @@ public function barangmasukinsert2(Request $request){
 	);
 	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
 	} 
-	return redirect('/approvebarangmasuk')->with('success', 'Data Anda Berhasil Diubah'); 
+	
+	// return redirect('/approvebarangmasuk')->with('success', 'Data Anda Berhasil Diubah'); 
 	
 }
 
@@ -346,17 +353,16 @@ public function approvebarangmasukdataupdate(Request $request){
 	if($request->hasfile('filenames')) {
 		$name = time().rand(1,100).'.'.$request->file('filenames')->extension();
                 $request->file('filenames')->move(public_path('files'), $name);  
-		 $data = DB::table('barang_masuk')
-	->where('id_barang_masuk', $request->input('id'))
+				$stok = $request->input('stok');
+		 DB::table('barang_masuk')->where('id_barang_masuk', $request->input('id'))
 	->update(
 		['status' => 'approve','gambar' => $name]
 	);
-	} else {
-		DB::table('barang_masuk')
-		->where('id_barang_masuk', $request->input('id'))
-		->update(
-			['status' => 'approve']
-		);
+
+	DB::table('barang')
+	->where('id_barang', $request->input('barang_id'))
+	->update(['stok' => DB::raw('stok + ' . $stok)]);
+	// ->increment('stok', $stok);
 	}
 	return redirect('/approvebarangmasuk')->with('success', 'Data Anda Berhasil Diubah'); 
 	

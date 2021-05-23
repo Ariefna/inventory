@@ -53,7 +53,7 @@
                             <td><?= $bm->jumlah_masuk; ?> <?= $bm->nama_satuan; ?></td>
                             <td><?= $bm->nama; ?></td>
                             <td>
-                                <a  href="<?=URL::to('/');?>/barangmasuk/approve/<?= $bm->id_barang_masuk; ?>" class="btn btn-warning btn-circle btn-sm"><i class="fa fa-check"></i></a>
+                            <a  href="<?=URL::to('/');?>/barangmasuk/approve/<?= $bm->id_barang_masuk; ?>" class="btn btn-warning btn-circle btn-sm"><i class="fa fa-check"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

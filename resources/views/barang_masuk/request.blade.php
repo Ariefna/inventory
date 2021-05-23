@@ -37,18 +37,18 @@
         </ul>
     </div>
 @endif
-<form method = "POST" action="/barang_masuk/insert2">
+<form method = "POST" action="/barangmasuk/insert2" enctype="multipart/form-data">
             {{ csrf_field() }}
                <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="id_barang_masuk">ID Transaksi Barang Masuk</label>
                     <div class="col-md-4">
-                        <input value="{{ $id_barang_masuk }}" type="text" readonly="readonly" class="form-control">
+                        <input name="id_barang_masuk" value="{{ $id_barang_masuk }}" type="text" readonly="readonly" class="form-control">
                     </div>
                 </div>
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="tanggal_masuk">Tanggal Masuk</label>
                     <div class="col-md-4">
-                        <input value="{{date('ymd')}}" name="tanggal_masuk" id="tanggal_masuk" type="text" class="form-control date" placeholder="Tanggal Masuk...">
+                        <input value="{{date('Y-m-d')}}" name="tanggal_masuk" id="tanggal_masuk" type="text" class="form-control date" placeholder="Tanggal Masuk...">
                     </div>
                 </div>
                 <div class="row form-group">
@@ -86,7 +86,7 @@
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="stok">Stok</label>
                     <div class="col-md-5">
-                        <input readonly="readonly" id="stok" type="number" class="form-control">
+                        <input readonly="readonly" id="stok" name="" type="number" class="form-control">
                     </div>
                 </div>
                 <div class="row form-group">

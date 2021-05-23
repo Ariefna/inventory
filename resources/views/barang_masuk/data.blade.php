@@ -38,14 +38,14 @@
         <table class="table table-striped w-100 dt-responsive nowrap" id="dataTable">
             <thead>
                 <tr>
-                    <th>No. </th>
+                    <th><input type="checkbox" name="" id=""></th>
                     <th>No Transaksi</th>
                     <th>Tanggal Masuk</th>
                     <th>Supplier</th>
                     <th>Nama Barang</th>
                     <th>Jumlah Masuk</th>
                     <th>User</th>
-                    <th>Hapus</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,7 +55,7 @@
                     foreach ($barangmasuk as $bm) :
                         ?>
                         <tr>
-                            <td><?= $no++; ?></td>
+                            <td><input type="checkbox" name="" id=""></td>
                             <td><?= $bm->id_barang_masuk; ?></td>
                             <td><?= $bm->tanggal_masuk; ?></td>
                             <td><?= $bm->nama_supplier; ?></td>
@@ -64,6 +64,7 @@
                             <td><?= $bm->nama; ?></td>
                             <td>
                                 <a onclick="return confirm('Yakin ingin hapus?')" href="<?=URL::to('/');?>/barangmasuk/delete/<?= $bm->id_barang_masuk; ?>" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></a>
+                                <a  href="<?=URL::to('/');?>/barangmasuk/print/<?= $bm->id_barang_masuk; ?>" class="btn btn-success btn-circle btn-sm"><i class="fa fa-print"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
