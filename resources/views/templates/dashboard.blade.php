@@ -366,6 +366,7 @@
             table.buttons().container().appendTo('#dataTable_wrapper .col-md-5:eq(0)');
         });
     </script>
+    
     <script type="text/javascript">
         // let hal = '<? /* = $this->uri->segment(1); */?>';
 
