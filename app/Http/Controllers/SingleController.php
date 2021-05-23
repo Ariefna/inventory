@@ -33,7 +33,7 @@ class singlecontroller extends Controller
 		->join('supplier', 'barang_masuk.supplier_id', '=', 'supplier.id_supplier')
 		->join('barang', 'barang_masuk.barang_id', '=', 'barang.id_barang')
 		->join('satuan', 'satuan.id_satuan', '=', 'barang.satuan_id')
-		->where('status', 'approve')
+		->whereIn('id_barang_masuk', $request->input('id'))
 		->get();
 		return view('laporan/print',['barangmasuk' => $barangmasuk]);
 	}
