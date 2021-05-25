@@ -28,7 +28,7 @@
         <table class="table table-striped w-100 dt-responsive nowrap" id="dataTable">
             <thead>
                 <tr>
-                    <th>No. </th>
+                <th><input type="checkbox" name="" id="select-all"></th>
                     <th>No Transaksi</th>
                     <th>Tanggal Masuk</th>
                     <th>Supplier</th>
@@ -45,7 +45,7 @@
                     foreach ($barangmasuk as $bm) :
                         ?>
                         <tr>
-                            <td><?= $no++; ?></td>
+                        <td><input type="checkbox" name="id[]" value="{{$bm->id_barang_masuk}}"></td>
                             <td><?= $bm->id_barang_masuk; ?></td>
                             <td><?= $bm->tanggal_masuk; ?></td>
                             <td><?= $bm->nama_supplier; ?></td>
@@ -54,6 +54,7 @@
                             <td><?= $bm->nama; ?></td>
                             <td>
                             <a  href="<?=URL::to('/');?>/barangmasuk/approve/<?= $bm->id_barang_masuk; ?>" class="btn btn-warning btn-circle btn-sm"><i class="fa fa-check"></i></a>
+                            <a  href="<?=URL::to('/');?>/print/<?= $bm->id_barang_masuk; ?>" class="btn btn-success btn-circle btn-sm"><i class="fa fa-print"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
