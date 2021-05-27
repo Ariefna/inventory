@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2021 at 04:51 AM
+-- Generation Time: May 27, 2021 at 02:34 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.4.16
 
@@ -93,24 +93,23 @@ CREATE TABLE `barang_masuk` (
   `jumlah_masuk` int(11) NOT NULL,
   `tanggal_masuk` date NOT NULL,
   `status` enum('approve','reject','proses') NOT NULL DEFAULT 'proses',
-  `gambar` varchar(255) DEFAULT NULL,
-  `bukti_acc` varchar(255) DEFAULT NULL
+  `gambar` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `barang_masuk`
 --
 
-INSERT INTO `barang_masuk` (`id_barang_masuk`, `supplier_id`, `user_id`, `barang_id`, `jumlah_masuk`, `tanggal_masuk`, `status`, `gambar`, `bukti_acc`) VALUES
-('T-BM-19082000001', 2, 1, 'B000003', 800, '2020-04-06', 'approve', '162113018067.png', ''),
-('T-BM-19082000002', 3, 1, 'B000001', 20, '2019-08-20', 'approve', '162175022835.jpg', ''),
-('T-BM-19082000003', 3, 1, 'B000002', 10, '2019-08-20', 'proses', NULL, ''),
-('T-BM-19082000004', 1, 1, 'B000004', 15, '2019-08-20', 'proses', NULL, ''),
-('T-BM-19092000005', 3, 1, 'B000002', 40, '2019-09-20', 'proses', NULL, ''),
-('T-BM-19092000006', 2, 1, 'B000003', 50, '2019-09-20', 'proses', NULL, ''),
-('T-BM-19092200007', 3, 1, 'B000004', 15, '2019-09-22', 'proses', NULL, ''),
-('T-BM-19092200008', 1, 1, 'B000003', 135, '2019-09-22', 'proses', NULL, ''),
-('T-BM-21052300001', 2, 1, 'B000002', 90, '2021-05-23', 'approve', '162173554478.jpg', '162173335784.jpg');
+INSERT INTO `barang_masuk` (`id_barang_masuk`, `supplier_id`, `user_id`, `barang_id`, `jumlah_masuk`, `tanggal_masuk`, `status`, `gambar`) VALUES
+('T-BM-19082000001', 2, 1, 'B000003', 800, '2020-04-06', 'approve', '162113018067.png'),
+('T-BM-19082000002', 3, 1, 'B000001', 20, '2019-08-20', 'approve', '162175022835.jpg'),
+('T-BM-19082000003', 3, 1, 'B000002', 10, '2019-08-20', 'proses', NULL),
+('T-BM-19082000004', 1, 1, 'B000004', 15, '2019-08-20', 'proses', NULL),
+('T-BM-19092000005', 3, 1, 'B000002', 40, '2019-09-20', 'proses', NULL),
+('T-BM-19092000006', 2, 1, 'B000003', 50, '2019-09-20', 'proses', NULL),
+('T-BM-19092200007', 3, 1, 'B000004', 15, '2019-09-22', 'proses', NULL),
+('T-BM-19092200008', 1, 1, 'B000003', 135, '2019-09-22', 'proses', NULL),
+('T-BM-21052300001', 2, 1, 'B000002', 90, '2021-05-23', 'approve', '162173554478.jpg');
 
 --
 -- Triggers `barang_masuk`

@@ -350,9 +350,6 @@ public function barangkeluarinsert(Request $request){
 	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
 }
 public function barangmasukinsert2(Request $request){
-	if($request->hasfile('filenames')) {
-		$name = time().rand(1,100).'.'.$request->file('filenames')->extension();
-                $request->file('filenames')->move(public_path('files'), $name);  
 	$supplier_id = $request->input('supplier_id');
 	// $user_id = $request->input('user_id');
 	$id_barang_masuk = $request->input('id_barang_masuk');
@@ -365,15 +362,10 @@ public function barangmasukinsert2(Request $request){
 		'user_id' => Session::get('id_user'), 
 		'barang_id' => $barang_id, 
 		'jumlah_masuk' => $jumlah_masuk, 
-		'tanggal_masuk' => $tanggal_masuk,
-		'bukti_acc' => $name
+		'tanggal_masuk' => $tanggal_masuk
 		]
 	);
 	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
-	} 
-	
-	// return redirect('/approvebarangmasuk')->with('success', 'Data Anda Berhasil Diubah'); 
-	
 }
 
 //update

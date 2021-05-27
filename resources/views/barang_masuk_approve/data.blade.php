@@ -25,6 +25,9 @@
         </div>
     </div>
     <div class="table-responsive">
+    <form action="/printmulti" method="POST">
+    {{ csrf_field() }}
+    <button type="submit" name="button" class="btn btn-success"><i class="fa fa-print"></i> Print</button>
         <table class="table table-striped w-100 dt-responsive nowrap" id="dataTable">
             <thead>
                 <tr>
@@ -67,6 +70,22 @@
                 <?php endif; ?>
             </tbody>
         </table>
+        </form>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script>
+    $('#select-all').click(function(event) {   
+    if(this.checked) {
+        // Iterate each checkbox
+        $(':checkbox').each(function() {
+            this.checked = true;                        
+        });
+    } else {
+        $(':checkbox').each(function() {
+            this.checked = false;                       
+        });
+    }
+});
+</script>
 @stop

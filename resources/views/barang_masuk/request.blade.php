@@ -37,7 +37,7 @@
         </ul>
     </div>
 @endif
-<form method = "POST" action="/barangmasuk/insert2" enctype="multipart/form-data">
+<form method = "POST" action="/barangmasuk/insert2">
             {{ csrf_field() }}
                <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="id_barang_masuk">ID Transaksi Barang Masuk</label>
@@ -105,12 +105,6 @@
                     <div class="col-md-5">
                         <input readonly="readonly" id="total_stok" type="number" class="form-control">
                     </div>
-                </div>
-                <div class="row form-group">
-                    <label class="col-md-4 text-md-right" for="total_stok">Upload Gambar</label>
-                    <div class="col-md-5">
-                    <input type="file" name="filenames" class="form-control">
-                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="col offset-md-4">
