@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2021 at 02:34 PM
+-- Generation Time: May 30, 2021 at 04:57 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.4.16
 
@@ -40,9 +40,9 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok`, `satuan_id`, `jenis_id`) VALUES
-('B000001', 'Lenovo Ideapad 1550', 35, 1, 3),
-('B000002', 'Samsung Galaxy J1 Ace', 320, 1, 4),
-('B000003', 'Aqua 1,5 Liter', 700, 3, 2),
+('B000001', 'Lenovo Ideapad 1550', -5, 1, 3),
+('B000002', 'Samsung Galaxy J1 Ace', 350, 1, 4),
+('B000003', 'Aqua 1,5 Liter', 665, 3, 2),
 ('B000004', 'Mouse Wireless Logitech M220', 20, 1, 7);
 
 -- --------------------------------------------------------
@@ -56,20 +56,22 @@ CREATE TABLE `barang_keluar` (
   `user_id` int(11) NOT NULL,
   `barang_id` char(7) NOT NULL,
   `jumlah_keluar` int(11) NOT NULL,
-  `tanggal_keluar` date NOT NULL
+  `tanggal_keluar` date NOT NULL,
+  `status` enum('approve','reject','proses') NOT NULL,
+  `gambar` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `barang_keluar`
 --
 
-INSERT INTO `barang_keluar` (`id_barang_keluar`, `user_id`, `barang_id`, `jumlah_keluar`, `tanggal_keluar`) VALUES
-('T-BK-19082000001', 1, 'B000003', 35, '2019-08-20'),
-('T-BK-19082000002', 1, 'B000002', 10, '2019-08-20'),
-('T-BK-19092000003', 1, 'B000001', 5, '2019-09-20'),
-('T-BK-19092000004', 1, 'B000003', 150, '2019-09-20'),
-('T-BK-19092000005', 1, 'B000004', 10, '2019-09-20'),
-('T-BK-19092200006', 1, 'B000003', 100, '2019-09-22');
+INSERT INTO `barang_keluar` (`id_barang_keluar`, `user_id`, `barang_id`, `jumlah_keluar`, `tanggal_keluar`, `status`, `gambar`) VALUES
+('T-BK-19082000002', 1, 'B000002', 10, '2019-08-20', 'proses', ''),
+('T-BK-19092000003', 1, 'B000001', 5, '2019-09-20', 'proses', ''),
+('T-BK-19092000004', 1, 'B000003', 150, '2019-09-20', 'proses', ''),
+('T-BK-19092000005', 1, 'B000004', 10, '2019-09-20', 'proses', ''),
+('T-BK-19092200006', 1, 'B000003', 100, '2019-09-22', 'proses', ''),
+('T-BK-21053000001', 7, 'B000001', 20, '2021-05-30', 'approve', NULL);
 
 --
 -- Triggers `barang_keluar`
@@ -101,15 +103,15 @@ CREATE TABLE `barang_masuk` (
 --
 
 INSERT INTO `barang_masuk` (`id_barang_masuk`, `supplier_id`, `user_id`, `barang_id`, `jumlah_masuk`, `tanggal_masuk`, `status`, `gambar`) VALUES
-('T-BM-19082000001', 2, 1, 'B000003', 800, '2020-04-06', 'approve', '162113018067.png'),
 ('T-BM-19082000002', 3, 1, 'B000001', 20, '2019-08-20', 'approve', '162175022835.jpg'),
-('T-BM-19082000003', 3, 1, 'B000002', 10, '2019-08-20', 'proses', NULL),
+('T-BM-19082000003', 3, 1, 'B000002', 10, '2019-08-20', 'approve', '162238484564.jpg'),
 ('T-BM-19082000004', 1, 1, 'B000004', 15, '2019-08-20', 'proses', NULL),
 ('T-BM-19092000005', 3, 1, 'B000002', 40, '2019-09-20', 'proses', NULL),
 ('T-BM-19092000006', 2, 1, 'B000003', 50, '2019-09-20', 'proses', NULL),
 ('T-BM-19092200007', 3, 1, 'B000004', 15, '2019-09-22', 'proses', NULL),
 ('T-BM-19092200008', 1, 1, 'B000003', 135, '2019-09-22', 'proses', NULL),
-('T-BM-21052300001', 2, 1, 'B000002', 90, '2021-05-23', 'approve', '162173554478.jpg');
+('T-BM-21052300001', 2, 1, 'B000002', 90, '2021-05-23', 'approve', '162173554478.jpg'),
+('T-BM-21053000001', 2, 7, 'B000002', 30, '2021-05-30', 'proses', NULL);
 
 --
 -- Triggers `barang_masuk`
