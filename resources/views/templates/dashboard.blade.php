@@ -113,7 +113,7 @@
                     <span>Approve Barang Masuk</span>
                 </a>
             </li>
-            @if (Session::get('role') == "gudang" || Session::get('role') == "admin")
+            @if (Session::get('role') == "gudang")
             <li class="nav-item">
                 <a class="nav-link pb-0" href="<?=URL::to('/');?>/pengajuanbarangmasuk">
                     <i class="fas fa-fw fa-download"></i>
@@ -129,7 +129,7 @@
             </li>
             @endif
          
-            @if (Session::get('role') == "gudang" || Session::get('role') == "admin")
+            @if (Session::get('role') == "gudang")
             <li class="nav-item">
                 <a class="nav-link pb-0" href="<?=URL::to('/');?>/barangkeluar/add">
                     <i class="fas fa-fw fa-download"></i>

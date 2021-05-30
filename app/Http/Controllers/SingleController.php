@@ -239,12 +239,8 @@ public function approvebarangkeluarview(){
 	->join('satuan', 'satuan.id_satuan', '=', 'barang.satuan_id')
 	->where('status', 'proses')
 	->get();
-
-	
 	return view('barang_keluar_approve/data',['title' => $title,'barangkeluar' => $barangkeluar]);
 }
-
-
 
 public function approvebarangmasukdataview($id){
 	$kode = $id;
@@ -647,7 +643,7 @@ public function barangbarangdelete($id){
 }
 public function barangmasukdelete($id){
 	$id_barang_masuk = $id;
-	DB::table('barang_masuk')->where('id_barang', '=', $id_barang)->delete();
+	DB::table('barang_masuk')->where('id_barang_masuk', '=', $id_barang_masuk)->delete();
 	return redirect()->back()->with('success', 'Data Anda Berhasil Dihapus'); 
 }
 public function barangkeluardelete($id){
