@@ -7,11 +7,11 @@
                 <div class="row">
                     <div class="col">
                         <h4 class="h5 align-middle m-0 font-weight-bold text-primary">
-                            Detail Barang Masuk
+                            Detail Barang Keluar
                         </h4>
                     </div>
                     <div class="col-auto">
-                        <a href="<?=URL::to('/');?>/barangmasuk" class="btn btn-sm btn-secondary btn-icon-split">
+                        <a href="<?=URL::to('/');?>/barangkeluar" class="btn btn-sm btn-secondary btn-icon-split">
                             <span class="icon">
                                 <i class="fa fa-arrow-left"></i>
                             </span>
@@ -37,51 +37,35 @@
         </ul>
     </div>
 @endif
-<form method = "POST" action="/barangmasuk/approve/update" enctype="multipart/form-data">
+<form method = "POST" action="/barangKeluar/approve/update" enctype="multipart/form-data">
             {{ csrf_field() }}
-               <div class="row form-group">
-                    <label class="col-md-4 text-md-right" for="id_barang_masuk">ID Transaksi Barang Masuk</label>
+            <div class="row form-group">
+                    <label class="col-md-4 text-md-right" for="id_barang_keluar">ID Transaksi Barang Keluar</label>
                     <div class="col-md-4">
-                        <input disabled="disabled" value="{{ $kode }}" type="text"  class="form-control">
-                        <input value="{{ $kode }}" name="id" type="hidden"  class="form-control">
+                        <input value="{{ $kode }}" name="id" type="text" readonly="readonly" class="form-control">
                     </div>
                 </div>
                 <div class="row form-group">
-                    <label class="col-md-4 text-md-right" for="tanggal_masuk">Tanggal Masuk</label>
+                    <label class="col-md-4 text-md-right" for="tanggal_keluar">Tanggal Keluar</label>
                     <div class="col-md-4">
-                        <input disabled="disabled" value="{{date('ymd')}}" name="tanggal_masuk" id="tanggal_masuk" type="text" class="form-control date" placeholder="Tanggal Masuk...">
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <label class="col-md-4 text-md-right" for="supplier_id">Supplier</label>
-                    <div class="col-md-5">
-                        <div class="input-group">
-                            <select disabled="disabled" name="supplier_id" id="supplier_id" class="custom-select">
-                                <option value="" selected disabled>Pilih Supplier</option>
-                                <?php foreach ($supplier as $s) : ?>
-                                    <option  value="<?= $s->id_supplier; ?>" <?= $s->id_supplier == $barang_masuk[0]->supplier_id ? 'selected' : ''; ?>><?= $s->nama_supplier; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <div class="input-group-append">
-                                <a disabled="disabled" class="btn btn-primary" href="#"><i class="fa fa-plus"></i></a>
-                            </div>
-                        </div>
+                        <input readonly value="{{date('ymd')}}" name="tanggal_keluar" id="tanggal_keluar" type="text" class="form-control date" placeholder="Tanggal Keluar...">
+                     
                     </div>
                 </div>
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="barang_id">Barang</label>
                     <div class="col-md-5">
                         <div class="input-group">
-                            <select disabled="disabled" readonly="readonly" name="barang_id" id="barang_id" class="custom-select">
-                                <option value="" selected disabled>Pilih Barang</option>
+                            <select disabled="disabled" name="barang_id" id="barang_id" class="custom-select">
+                                <option value="" selected>Pilih Barang</option>
                                 <?php foreach ($barang as $b) : ?>
-                                @if($barang_masuk[0]->barang_id == $b->id_barang)
-                                    <option  value="<?= $b->id_barang; ?>" <?= ($barang_masuk[0]->barang_id == $b->id_barang) ? 'selected disabled'.$stok = $b->stok : ''; ?>><?= $b->id_barang; ?> | <?= $b->nama_barang; ?></option>
-                                @endif
+                                    <option value="<?= $b->id_barang; ?>" <?= $b->id_barang == $barang_keluar[0]->barang_id ? 'selected '.$stok = $b->stok : ''; ?>><?= $b->id_barang; ?> | <?= $b->nama_barang; ?></option>
                                 <?php endforeach; ?>
                             </select>
+                            <input type="hidden" name="barang_id" value="{{$barang_keluar[0]->barang_id}}">
+                            <input type="hidden" name="stok" value="{{$barang_keluar[0]->jumlah_keluar}}">
                             <div class="input-group-append">
-                                <a disabled="disabled" class="btn btn-primary" href="#"><i class="fa fa-plus"></i></a>
+                                <a class="btn btn-primary" href="#"><i class="fa fa-plus"></i></a>
                             </div>
                         </div>
                     </div>
@@ -89,14 +73,14 @@
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="stok">Stok</label>
                     <div class="col-md-5">
-                        <input readonly="readonly" id="stok" value="<?= $stok?>" type="number" class="form-control">
+                        <input readonly="readonly" value="{{$stok}}" id="stok" type="number" class="form-control">
                     </div>
                 </div>
                 <div class="row form-group">
-                    <label class="col-md-4 text-md-right" for="jumlah_masuk">Jumlah Masuk</label>
+                    <label class="col-md-4 text-md-right" for="jumlah_keluar">Jumlah Keluar</label>
                     <div class="col-md-5">
                         <div class="input-group">
-                            <input readonly="readonly" name="stok" value="<?= $barang_masuk[0]->jumlah_masuk; ?>" name="jumlah_masuk" id="jumlah_masuk" type="number" class="form-control" placeholder="Jumlah Masuk...">
+                            <input readonly value="{{ $barang_keluar[0]->jumlah_keluar }}" name="jumlah_keluar" id="jumlah_keluar" type="number" class="form-control" placeholder="Jumlah Keluar...">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="satuan">Satuan</span>
                             </div>
@@ -106,7 +90,7 @@
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="total_stok">Total Stok</label>
                     <div class="col-md-5">
-                        <input disabled="disabled" id="total_stok" value="<?= $stok+$barang_masuk[0]->jumlah_masuk; ?>" type="number" class="form-control">
+                        <input readonly="readonly" value="{{$stok-$barang_keluar[0]->jumlah_keluar}}" id="total_stok" type="number" class="form-control">
                     </div>
                 </div>
                 <div class="row form-group">

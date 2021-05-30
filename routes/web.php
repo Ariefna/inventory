@@ -17,8 +17,10 @@ Route::get('/login', 'App\Http\Controllers\SingleController@login');
 Route::post('/login', 'App\Http\Controllers\SingleController@login_request');
 Route::get('/logout', 'App\Http\Controllers\SingleController@logout');
 Route::get('/print/{id}', 'App\Http\Controllers\SingleController@print');
+Route::get('/printk/{id}', 'App\Http\Controllers\SingleController@printk');
 Route::get('/barang/getstok/{id}', 'App\Http\Controllers\SingleController@jsonbarang');
 Route::post('/printmulti', 'App\Http\Controllers\SingleController@printmulti');
+Route::post('/printmultik', 'App\Http\Controllers\SingleController@printkmulti');
 
 
 Route::middleware(['admin'])->group(function () {
@@ -112,7 +114,10 @@ Route::get('/barangmasuk', 'App\Http\Controllers\SingleController@barangmasukvie
 
 Route::get('/barangkeluar', 'App\Http\Controllers\SingleController@barangkeluarview');
 Route::get('/approvebarangmasuk', 'App\Http\Controllers\SingleController@approvebarangmasukview');
+Route::get('/approvebarangkeluar', 'App\Http\Controllers\SingleController@approvebarangkeluarview');
+
 Route::get('/barangmasuk/approve/{id}', 'App\Http\Controllers\SingleController@approvebarangmasukdataview');
+Route::get('/barangKeluar/approve/{id}', 'App\Http\Controllers\SingleController@approvebarangkeluardataview');
 Route::get('/laporan', 'App\Http\Controllers\SingleController@laporanview');
 Route::POST('/laporan/hasil/', 'App\Http\Controllers\SingleController@laporanhasilview');
 // edit view
@@ -123,6 +128,7 @@ Route::get('/profile/setting', 'App\Http\Controllers\SingleController@profileset
 Route::get('/profile/ubahpassword', 'App\Http\Controllers\SingleController@profileubahpasswordview');
 // update
 Route::post('/barangmasuk/approve/update/', 'App\Http\Controllers\SingleController@approvebarangmasukdataupdate');
+Route::post('/barangKeluar/approve/update/', 'App\Http\Controllers\SingleController@approvebarangkeluardataupdate');
 Route::post('/user/update', 'App\Http\Controllers\SingleController@userupdate');
 Route::GET('/user/toggle/{id}', 'App\Http\Controllers\SingleController@usertoggleupdate');
 Route::post('/profile/setting/update', 'App\Http\Controllers\SingleController@profileupdate');

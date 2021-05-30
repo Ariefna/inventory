@@ -38,6 +38,17 @@ class singlecontroller extends Controller
 		->whereIn('id_barang_masuk', $request->input('id'))
 		->get();
 		return view('laporan/print',['barangmasuk' => $barangmasuk]);
+	}	
+	public function printkmulti(Request $request){
+		// dd($request->input('id'));
+
+		$barangkeluar = DB::table('barang_keluar')
+		->join('user', 'barang_keluar.user_id', '=', 'user.id_user')
+		->join('barang', 'barang_keluar.barang_id', '=', 'barang.id_barang')
+		->join('satuan', 'satuan.id_satuan', '=', 'barang.satuan_id')
+		->whereIn('barang_keluar.id_barang_keluar', $request->input('id'))
+		->get();
+			return view('laporan/printk',['barangkeluar' => $barangkeluar]);
 	}
 	
 	public function jsonbarang($id){
@@ -57,6 +68,15 @@ print_r($encodedSku);
 		->where('barang_masuk.id_barang_masuk', $id)
 		->get();
 		return view('laporan/print',['barangmasuk' => $barangmasuk]);
+	}
+	public function printk($id){
+		$barangkeluar = DB::table('barang_keluar')
+	->join('user', 'barang_keluar.user_id', '=', 'user.id_user')
+	->join('barang', 'barang_keluar.barang_id', '=', 'barang.id_barang')
+	->join('satuan', 'satuan.id_satuan', '=', 'barang.satuan_id')
+	->where('barang_keluar.id_barang_keluar', $id)
+	->get();
+		return view('laporan/printk',['barangkeluar' => $barangkeluar]);
 	}
 		public function logout(){
 		Session::forget('role');
@@ -211,20 +231,39 @@ public function approvebarangmasukview(){
 	->get();
 	return view('barang_masuk_approve/data',['title' => $title,'barangmasuk' => $barangmasuk]);
 }
+public function approvebarangkeluarview(){
+	$title = "Master Barang Keluar";
+	$barangkeluar = DB::table('barang_keluar')
+	->join('user', 'barang_keluar.user_id', '=', 'user.id_user')
+	->join('barang', 'barang_keluar.barang_id', '=', 'barang.id_barang')
+	->join('satuan', 'satuan.id_satuan', '=', 'barang.satuan_id')
+	->where('status', 'proses')
+	->get();
+
+	
+	return view('barang_keluar_approve/data',['title' => $title,'barangkeluar' => $barangkeluar]);
+}
+
+
+
 public function approvebarangmasukdataview($id){
-	$kode = 'T-BM-' . date('ymd');
-            $kode_terakhir = DB::table('barang_masuk')->where('id_barang_masuk', 'like', '"%'.$kode.'%"')->max('id_barang_masuk');
-			DB::table('barang')->max('id_barang');
-            $kode_tambah = substr($kode_terakhir, -5, 5);
-            $kode_tambah++;
-            $number = str_pad($kode_tambah, 5, '0', STR_PAD_LEFT);
-            $id_barang_masuk = $kode . $number;
+	$kode = $id;
 	$supplier = DB::table('supplier')->get();
 	$barang = DB::table('barang')->get();
 	$satuan = DB::table('satuan')->get();
 	$barang_masuk = DB::table('barang_masuk')->where('id_barang_masuk', $id)->get();
 	$title = "Approve Data Barang Masuk";
-return view('barang_masuk_approve/edit',['title' => $title, 'supplier' => $supplier, 'barang' => $barang, 'id_barang_masuk' => $id_barang_masuk, 'id' => $id, 'barang_masuk' => $barang_masuk]);
+return view('barang_masuk_approve/edit',['title' => $title, 'supplier' => $supplier, 'barang' => $barang, 'kode' => $kode, 'id' => $id, 'barang_masuk' => $barang_masuk]);
+}
+public function approvebarangkeluardataview($id){
+	$kode = $id;
+	$supplier = DB::table('supplier')->get();
+	$barang = DB::table('barang')->get();
+	$satuan = DB::table('satuan')->get();
+	$barang_keluar = DB::table('barang_keluar')->where('id_barang_keluar', $id)->get();
+	$title = "Approve Data Barang Keluar";
+	// dd($barang_keluar);
+return view('barang_keluar_approve/edit',['title' => $title, 'supplier' => $supplier, 'barang' => $barang, 'kode' => $kode, 'id' => $id, 'barang_keluar' => $barang_keluar]);
 }
 
 // edit view
@@ -385,6 +424,24 @@ public function approvebarangmasukdataupdate(Request $request){
 	// ->increment('stok', $stok);
 	}
 	return redirect('/approvebarangmasuk')->with('success', 'Data Anda Berhasil Diubah'); 
+	
+}
+public function approvebarangkeluardataupdate(Request $request){
+	if($request->hasfile('filenames')) {
+		$name = time().rand(1,100).'.'.$request->file('filenames')->extension();
+                $request->file('filenames')->move(public_path('files'), $name);  
+				$stok = $request->input('stok');
+		 DB::table('barang_keluar')->where('id_barang_keluar', $request->input('id'))
+	->update(
+		['status' => 'approve','gambar' => $name]
+	);
+
+	DB::table('barang')
+	->where('id_barang', $request->input('barang_id'))
+	->update(['stok' => DB::raw('stok - ' . $stok)]);
+	// ->increment('stok', $stok);
+	}
+	return redirect('/approvebarangkeluar')->with('success', 'Data Anda Berhasil Diubah'); 
 	
 }
 public function supplierupdate(Request $request){
