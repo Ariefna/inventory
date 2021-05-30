@@ -358,7 +358,7 @@ public function barangmasukinsert(Request $request){
 	DB::table('barang_masuk')->insert(
 		['id_barang_masuk' => $id_barang_masuk, 
 		'supplier_id' => $supplier_id, 
-		'user_id' => $user_id, 
+		'user_id' => Session::get('id_user'), 
 		'barang_id' => $barang_id, 
 		'jumlah_masuk' => $jumlah_masuk, 
 		'tanggal_masuk' => $tanggal_masuk
@@ -376,6 +376,7 @@ public function barangkeluarinsert(Request $request){
 		['id_barang_keluar' => $id_barang_keluar, 
 		'barang_id' => $barang_id, 
 		'jumlah_keluar' => $jumlah_keluar, 
+		'user_id' => Session::get('id_user'), 
 		'tanggal_keluar' => $tanggal_keluar
 		]
 	);

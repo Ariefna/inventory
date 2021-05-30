@@ -10,8 +10,8 @@
                             Form Request Barang Masuk
                         </h4>
                     </div>
-                    <div class="col-auto">
-                        <a href="<?=URL::to('/');?>/barangmasuk" class="btn btn-sm btn-secondary btn-icon-split">
+                    <!-- <div class="col-auto">
+                        <a href="<?//=URL::to('/');?>/barangmasuk" class="btn btn-sm btn-secondary btn-icon-split">
                             <span class="icon">
                                 <i class="fa fa-arrow-left"></i>
                             </span>
@@ -19,7 +19,7 @@
                                 Kembali
                             </span>
                         </a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="card-body">

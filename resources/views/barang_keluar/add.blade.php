@@ -10,8 +10,8 @@
                             Form Input Barang Keluar
                         </h4>
                     </div>
-                    <div class="col-auto">
-                        <a href="<?=URL::to('/');?>/barangkeluar" class="btn btn-sm btn-secondary btn-icon-split">
+                    <!-- <div class="col-auto">
+                        <a href="<?//=URL::to('/');?>/barangkeluar" class="btn btn-sm btn-secondary btn-icon-split">
                             <span class="icon">
                                 <i class="fa fa-arrow-left"></i>
                             </span>
@@ -19,7 +19,7 @@
                                 Kembali
                             </span>
                         </a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="card-body">
@@ -37,18 +37,18 @@
         </ul>
     </div>
 @endif
-<form method = "POST" action="/barang_keluar/insert">
+<form method = "POST" action="/barangkeluar/insert">
             {{ csrf_field() }}
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="id_barang_keluar">ID Transaksi Barang Keluar</label>
                     <div class="col-md-4">
-                        <input value="{{ $id_barang_keluar }}" type="text" readonly="readonly" class="form-control">
+                        <input value="{{ $id_barang_keluar }}" name="id_barang_keluar" type="text" readonly="readonly" class="form-control">
                     </div>
                 </div>
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="tanggal_keluar">Tanggal Keluar</label>
                     <div class="col-md-4">
-                        <input value="{{date('ymd')}}" name="tanggal_keluar" id="tanggal_keluar" type="text" class="form-control date" placeholder="Tanggal Masuk...">
+                        <input value="{{date('Y-m-d')}}" name="tanggal_keluar" id="tanggal_keluar" type="text" class="form-control date" placeholder="Tanggal Masuk...">
                      
                     </div>
                 </div>

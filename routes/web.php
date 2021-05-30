@@ -52,7 +52,7 @@ Route::post('/satuan/insert', 'App\Http\Controllers\SingleController@barangsatua
 Route::post('/jenis/insert', 'App\Http\Controllers\SingleController@barangjenisinsert');
 Route::post('/barang/insert', 'App\Http\Controllers\SingleController@barangbaranginsert');
 Route::post('/barangmasuk/insert', 'App\Http\Controllers\SingleController@barangmasukinsert');
-Route::post('/barangkeluar/insert', 'App\Http\Controllers\SingleController@barangkeluarinsert');
+
 Route::post('/user/insert', 'App\Http\Controllers\SingleController@userinsert');
 
 // insert view
@@ -70,7 +70,6 @@ Route::get('/jenis/add', 'App\Http\Controllers\SingleController@barangjenisinser
 Route::get('/barang/add', 'App\Http\Controllers\SingleController@barangbaranginsertview');
 Route::get('/barangmasuk/add', 'App\Http\Controllers\SingleController@barangmasukinsertview');
 Route::get('/barangmasuk/add/{id}', 'App\Http\Controllers\SingleController@barangmasukinsertviewdua');
-Route::get('/barangkeluar/add', 'App\Http\Controllers\SingleController@barangkeluarinsertview');
 
 // update
 
@@ -100,6 +99,9 @@ Route::middleware(['gudang'])->group(function () {
     Route::post('/barang/insert', 'App\Http\Controllers\SingleController@barangbaranginsert');
     Route::post('/barangmasuk/insert', 'App\Http\Controllers\SingleController@barangmasukinsert');
     Route::get('/pengajuanbarangmasuk', 'App\Http\Controllers\SingleController@pengajuanbarangmasukview');
+Route::get('/barangkeluar/add', 'App\Http\Controllers\SingleController@barangkeluarinsertview');
+Route::post('/barangkeluar/insert', 'App\Http\Controllers\SingleController@barangkeluarinsert');
+
 });
 Route::group(['middleware' => ['lurah']], function() {
 Route::get('/', 'App\Http\Controllers\SingleController@index');
