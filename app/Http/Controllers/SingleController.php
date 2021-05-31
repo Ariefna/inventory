@@ -160,6 +160,7 @@ public function barangkeluarview(){
 	->join('user', 'barang_keluar.user_id', '=', 'user.id_user')
 	->join('barang', 'barang_keluar.barang_id', '=', 'barang.id_barang')
 	->join('satuan', 'satuan.id_satuan', '=', 'barang.satuan_id')
+	->where('status', 'approve')
 	->get();
 	return view('barang_keluar/data',['title' => $title,'barangkeluar' => $barangkeluar]);
 }

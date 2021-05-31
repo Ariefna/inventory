@@ -66,6 +66,7 @@
                             <td>
                                 <a onclick="return confirm('Yakin ingin hapus?')" href="<?=URL::to('/');?>/barangkeluar/delete/<?=$bk->id_barang_keluar; ?>" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></a>
                                 <a  href="<?=URL::to('/');?>/printk/<?= $bk->id_barang_keluar; ?>" class="btn btn-success btn-circle btn-sm"><i class="fa fa-print"></i></a>
+                                <a target="_blank"  href="<?=URL::to('/');?>/files/<?= $bk->gambar; ?>" class="btn btn-success btn-circle btn-sm"><i class="fa fa-image"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
