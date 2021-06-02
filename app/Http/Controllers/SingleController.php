@@ -141,8 +141,7 @@ public function barangmasukview(){
 public function pengajuanbarangmasukview(){
 	$title = "Tambah Data Request Barang Masuk";
 	$kode = 'T-BM-' . date('ymd');
-            $kode_terakhir = DB::table('barang_masuk')->where('id_barang_masuk', 'like', '"%'.$kode.'%"')->max('id_barang_masuk');
-			DB::table('barang')->max('id_barang');
+            $kode_terakhir = DB::table('barang_masuk')->where('id_barang_masuk', 'like', "%{$kode}%")->max('id_barang_masuk');
             $kode_tambah = substr($kode_terakhir, -5, 5);
             $kode_tambah++;
             $number = str_pad($kode_tambah, 5, '0', STR_PAD_LEFT);
@@ -150,9 +149,7 @@ public function pengajuanbarangmasukview(){
 	$supplier = DB::table('supplier')->get();
 	$barang = DB::table('barang')->get();
 	$satuan = DB::table('satuan')->get();
-	 
 return view('barang_masuk/request',['title' => $title, 'supplier' => $supplier, 'barang' => $barang, 'id_barang_masuk' => $id_barang_masuk]);
-
 }
 public function barangkeluarview(){
 	$title = "Master Barang Keluar";
@@ -378,6 +375,7 @@ public function barangkeluarinsert(Request $request){
 		'barang_id' => $barang_id, 
 		'jumlah_keluar' => $jumlah_keluar, 
 		'user_id' => Session::get('id_user'), 
+		'status' => 'proses', 
 		'tanggal_keluar' => $tanggal_keluar
 		]
 	);
@@ -581,7 +579,7 @@ return view('barang/add',['title' => $title,'jenis' => $jenis,'satuan' => $satua
 public function barangmasukinsertview(){
 	$title = "Tambah Data Barang Masuk";
 	$kode = 'T-BM-' . date('ymd');
-            $kode_terakhir = DB::table('barang_masuk')->where('id_barang_masuk', 'like', '"%'.$kode.'%"')->max('id_barang_masuk');
+            $kode_terakhir = DB::table('barang_masuk')->where('id_barang_masuk', 'like', "%{$kode}%")->max('id_barang_masuk');
 			DB::table('barang')->max('id_barang');
             $kode_tambah = substr($kode_terakhir, -5, 5);
             $kode_tambah++;
@@ -596,7 +594,7 @@ return view('barang_masuk/add',['title' => $title, 'supplier' => $supplier, 'bar
 
 public function barangmasukinsertviewdua($id){
 	$kode = 'T-BM-' . date('ymd');
-            $kode_terakhir = DB::table('barang_masuk')->where('id_barang_masuk', 'like', '"%'.$kode.'%"')->max('id_barang_masuk');
+            $kode_terakhir = DB::table('barang_masuk')->where('id_barang_masuk', 'like', "%{$kode}%")->max('id_barang_masuk');
 			DB::table('barang')->max('id_barang');
             $kode_tambah = substr($kode_terakhir, -5, 5);
             $kode_tambah++;
@@ -611,7 +609,7 @@ return view('barang_masuk/add2',['title' => $title, 'supplier' => $supplier, 'ba
 
 public function barangkeluarinsertview(){
 	$kode = 'T-BK-' . date('ymd');
-            $kode_terakhir = DB::table('barang_keluar')->where('id_barang_keluar', 'like', '"%'.$kode.'%"')->max('id_barang_keluar');
+            $kode_terakhir = DB::table('barang_keluar')->where('id_barang_keluar', 'like', "%{$kode}%")->max('id_barang_keluar');
 			DB::table('barang')->max('id_barang');
             $kode_tambah = substr($kode_terakhir, -5, 5);
             $kode_tambah++;
