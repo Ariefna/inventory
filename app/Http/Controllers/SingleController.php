@@ -414,7 +414,6 @@ public function approvebarangmasukdataupdate(Request $request){
 	DB::table('barang')
 	->where('id_barang', $request->input('barang_id'))
 	->update(['stok' => DB::raw('stok + ' . $stok)]);
-	// ->increment('stok', $stok);
 	}
 	return redirect('/approvebarangmasuk')->with('success', 'Data Anda Berhasil Diubah'); 
 	
