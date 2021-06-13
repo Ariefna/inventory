@@ -57,7 +57,6 @@ class singlecontroller extends Controller
 		->get();
 		$encodedSku = json_encode($barang);
 print_r($encodedSku);
-
 	}
 		public function print($id){
 		$barangmasuk = DB::table('barang_masuk')
@@ -379,9 +378,7 @@ public function barangkeluarinsert(Request $request){
 		'tanggal_keluar' => $tanggal_keluar
 		]
 	);
-	DB::table('barang')
-	->where('id_barang', $barang_id)
-	->update(['stok' => DB::raw('stok - ' . $jumlah_keluar)]);
+	
 	return redirect()->back()->with('success', 'Data Anda Berhasil Dimasukkan'); 
 }
 public function barangmasukinsert2(Request $request){

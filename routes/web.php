@@ -21,6 +21,13 @@ Route::get('/printk/{id}', 'App\Http\Controllers\SingleController@printk');
 Route::get('/barang/getstok/{id}', 'App\Http\Controllers\SingleController@jsonbarang');
 Route::post('/printmulti', 'App\Http\Controllers\SingleController@printmulti');
 Route::post('/printmultik', 'App\Http\Controllers\SingleController@printkmulti');
+Route::post('/supplier/insert', 'App\Http\Controllers\SingleController@supplierinsert');
+Route::post('/satuan/insert', 'App\Http\Controllers\SingleController@barangsatuaninsert');
+Route::post('/jenis/insert', 'App\Http\Controllers\SingleController@barangjenisinsert');
+Route::post('/barang/insert', 'App\Http\Controllers\SingleController@barangbaranginsert');
+Route::post('/barangmasuk/insert', 'App\Http\Controllers\SingleController@barangmasukinsert');
+
+Route::post('/user/insert', 'App\Http\Controllers\SingleController@userinsert');
 
 
 Route::middleware(['admin'])->group(function () {
@@ -47,13 +54,7 @@ Route::get('/jenis/edit/{id}', 'App\Http\Controllers\SingleController@jenisedit'
 Route::get('/barang/edit/{id}', 'App\Http\Controllers\SingleController@barangedit');
 
 // insert
-Route::post('/supplier/insert', 'App\Http\Controllers\SingleController@supplierinsert');
-Route::post('/satuan/insert', 'App\Http\Controllers\SingleController@barangsatuaninsert');
-Route::post('/jenis/insert', 'App\Http\Controllers\SingleController@barangjenisinsert');
-Route::post('/barang/insert', 'App\Http\Controllers\SingleController@barangbaranginsert');
-Route::post('/barangmasuk/insert', 'App\Http\Controllers\SingleController@barangmasukinsert');
 
-Route::post('/user/insert', 'App\Http\Controllers\SingleController@userinsert');
 
 // insert view
 // Route::get('/profile', 'App\Http\Controllers\SingleController@profileview');
