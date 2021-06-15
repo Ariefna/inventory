@@ -72,7 +72,7 @@
                     <label class="col-md-4 text-md-right" for="barang_id">Barang</label>
                     <div class="col-md-5">
                         <div class="input-group">
-                            <select disabled="disabled" readonly="readonly" name="barang_id" id="barang_id" class="custom-select">
+                            <select readonly="readonly" name="barang_id" id="barang_id" class="custom-select">
                                 <option value="" selected disabled>Pilih Barang</option>
                                 <?php foreach ($barang as $b) : ?>
                                 @if($barang_masuk[0]->barang_id == $b->id_barang)

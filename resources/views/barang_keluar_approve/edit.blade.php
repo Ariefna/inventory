@@ -56,7 +56,7 @@
                     <label class="col-md-4 text-md-right" for="barang_id">Barang</label>
                     <div class="col-md-5">
                         <div class="input-group">
-                            <select disabled="disabled" name="barang_id" id="barang_id" class="custom-select">
+                            <select readonly="readonly" name="barang_id" id="barang_id" class="custom-select">
                                 <option value="" selected>Pilih Barang</option>
                                 <?php foreach ($barang as $b) : ?>
                                     <option value="<?= $b->id_barang; ?>" <?= $b->id_barang == $barang_keluar[0]->barang_id ? 'selected '.$stok = $b->stok : ''; ?>><?= $b->id_barang; ?> | <?= $b->nama_barang; ?></option>
