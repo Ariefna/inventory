@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2021 at 01:58 PM
+-- Generation Time: Jun 15, 2021 at 05:46 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.4.16
 
@@ -44,7 +44,7 @@ INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok`, `satuan_id`, `jenis_id
 ('B000002', 'Samsung Galaxy J1 Ace', 340, 1, 4),
 ('B000003', 'Aqua 1,5 Liter', 515, 3, 2),
 ('B000004', 'Mouse Wireless Logitech M220', -80, 1, 7),
-('B000005', 'barang baru', 30, 1, 3);
+('B000005', 'barang baru', 0, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -72,15 +72,8 @@ INSERT INTO `barang_keluar` (`id_barang_keluar`, `user_id`, `barang_id`, `jumlah
 ('T-BK-19092000004', 1, 'B000003', 150, '2019-09-20', 'approve', '162254863285.jpg'),
 ('T-BK-19092000005', 1, 'B000004', 10, '2019-09-20', 'proses', ''),
 ('T-BK-19092200006', 1, 'B000003', 100, '2019-09-22', 'proses', ''),
-('T-BK-21060100001', 7, 'B000004', 500, '2021-06-01', 'proses', NULL);
-
---
--- Triggers `barang_keluar`
---
-DELIMITER $$
-CREATE TRIGGER `update_stok_keluar` BEFORE INSERT ON `barang_keluar` FOR EACH ROW UPDATE `barang` SET `barang`.`stok` = `barang`.`stok` - NEW.jumlah_keluar WHERE `barang`.`id_barang` = NEW.barang_id
-$$
-DELIMITER ;
+('T-BK-21060100001', 7, 'B000004', 500, '2021-06-01', 'proses', NULL),
+('T-BK-21061300001', 7, 'B000005', 10, '2021-06-13', 'approve', '162372871223.png');
 
 -- --------------------------------------------------------
 
@@ -115,9 +108,7 @@ INSERT INTO `barang_masuk` (`id_barang_masuk`, `supplier_id`, `user_id`, `barang
 ('T-BM-21053000001', 2, 7, 'B000002', 30, '2021-05-30', 'approve', '162254851951.jpg'),
 ('T-BM-21060100001', 4, 7, 'B000004', 900, '2021-06-01', 'approve', '162254722334.jpg'),
 ('T-BM-21061300001', 4, 7, 'B000001', 10, '2021-06-13', 'proses', NULL),
-('T-BM-21061300002', 7, 7, 'B000005', 10, '2021-06-13', 'proses', NULL),
-('T-BM-21061300003', 7, 7, 'B000005', 10, '2021-06-13', 'proses', NULL),
-('T-BM-21061300004', 7, 7, 'B000005', 10, '2021-06-13', 'proses', NULL);
+('T-BM-21061500001', 7, 7, 'B000005', 10, '2021-06-15', 'approve', '162372862067.png');
 
 -- --------------------------------------------------------
 
